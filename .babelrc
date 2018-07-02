@@ -1,0 +1,9 @@
+{
+<<<<<<< HEAD
+    "presets": ["@babel/preset-react"]
+  }
+=======
+  "presets": ["env", "react"],
+  "plugins": ["transform-class-properties"]
+}
+>>>>>>> 352286b... :tada: FEAT
