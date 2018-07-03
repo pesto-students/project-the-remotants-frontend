@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { backend_url } from '../config/constants.js'
 
 class App extends Component {
   state = {
     status: ''
   }
 
-  componentDidMount() {
-    axios.get('https://the-remotants-backend.herokuapp.com/test').then(data => {
+componentDidMount() {
+  axios.get(backend_url).then(data => {
       this.setState(
         {
           status: data.data.status
