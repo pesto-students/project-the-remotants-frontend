@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { backend_url } from '../config/constants.js'
+import { BACKEND_URL } from '../config/constants.js'
 
 class App extends Component {
   state = {
@@ -8,7 +8,7 @@ class App extends Component {
   }
 
 componentDidMount() {
-  axios.get(backend_url).then(data => {
+  axios.get(BACKEND_URL).then(data => {
       this.setState(
         {
           status: data.data.status

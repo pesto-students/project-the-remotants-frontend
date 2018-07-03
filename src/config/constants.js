@@ -1,1 +1,1 @@
-export const backend_url = 'https://the-remotants-backend.herokuapp.com/test';
+export const BACKEND_URL = 'https://the-remotants-backend.herokuapp.com/test';
