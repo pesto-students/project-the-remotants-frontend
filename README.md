@@ -12,6 +12,46 @@
 
   **[Click here to view SRS](https://docs.google.com/document/d/1xWwKT5SXcV00u5P2xdxyEVezk-qA4nPujcpTQE3-SF8/edit?usp=sharing)**
 
+## UP AND RUNNING
+
+  Install dependencies:
+
+  If you use yarn:
+  ```
+  $ yarn
+  ```
+  Else if you use npm:
+  ```
+  $ npm install
+  ```
+
+## Start the development server
+  ```
+  $ yarn start
+  ```
+  or
+  ```
+  $ npm start
+  ```
+
+## Testing
+  ```
+  $ yarn test
+  ```
+  Or
+  ```
+  $ npm test
+  ```
+
+## Production Build
+  ```
+  $ yarn build
+  ```
+  or
+  ```
+  $ npm run build
+  ```
+
 ## Stack
  ### Front-End:
 
