@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { BACKEND_URL } from '../config/constants.js'
+import { BACKEND_URL } from '../config/constants';
 
 class App extends Component {
   state = {
-    status: ''
+    status: '',
   }
 
-componentDidMount() {
-  axios.get(BACKEND_URL).then(data => {
-      this.setState(
-        {
-          status: data.data.status
-        }
-      );
-    })
+  componentDidMount() {
+    axios.get(BACKEND_URL).then((data) => {
+      this.setState({
+        status: data.data.status,
+      });
+    });
   }
 
   render() {
-    return(
+    return (
       <div>
         Status: {this.state.status}
       </div>

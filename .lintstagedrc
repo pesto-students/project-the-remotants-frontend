@@ -1,0 +1,8 @@
+{
+    "linters": {
+      "*.js": [
+        "eslint",
+        "git add"
+      ]
+    }
+}
