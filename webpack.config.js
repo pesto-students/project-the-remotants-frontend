@@ -19,7 +19,7 @@ const config = {
   output: {
     path: __dirname + "/dist",
     filename: 'bundle.js'
-  },
+  }
 };
 
 module.exports = config;
