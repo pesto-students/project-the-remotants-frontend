@@ -1,0 +1,1 @@
+export const backend_url = 'https://the-remotants-backend.herokuapp.com/test';
