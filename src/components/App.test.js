@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { shallow } from 'enzyme';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-});
+describe('Rendering element', () =>
+it('renders a div', () => {
+  const wrapper = shallow(<div />);
+  expect(wrapper.length).toBeGreaterThan(0);
+}));
