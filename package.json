@@ -4,19 +4,22 @@
   "main": "index.js",
   "repository": "https://github.com/PestoTech/project-the-remotants-frontend.git",
   "scripts": {
-    "start": "webpack-dev-server --mode development index.js",
-    "build": "webpack-dev-server --mode production index.js"
+    "start": "webpack-dev-server --mode development src/ --content-base dist/",
+    "build": "webpack --mode production src/"
   },
-  "author": "saumya29 <saumyatiwari.29@gmail.com>",
+  "author": "Saumya Tiwari <saumyatiwari.29@gmail.com>, Nikhil Arora <narora200@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.51",
-    "@babel/preset-react": "^7.0.0-beta.51",
-    "babel-loader": "8.0.0-beta.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "webpack": "^4.14.0",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4"
