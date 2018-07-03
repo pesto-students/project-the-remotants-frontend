@@ -1,16 +1,20 @@
 {
-  "name": "project-the-remotants-frontend",
+  "name": "the-remotants-frontend",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/PestoTech/project-the-remotants-frontend.git",
   "scripts": {
     "start": "webpack-dev-server --mode development src/ --content-base dist/",
-    "build": "webpack --mode production src/"
+    "build": "webpack --mode production src/",
+    "test": "jest"
   },
   "author": "Saumya Tiwari <saumyatiwari.29@gmail.com>, Nikhil Arora <narora200@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest": "^23.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   },
