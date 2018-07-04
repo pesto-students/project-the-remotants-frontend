@@ -1,27 +1,31 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { BACKEND_URL } from '../config/constants';
+import React, { Fragment } from 'react';
 
-class App extends Component {
-  state = {
-    status: '',
-  }
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-  componentDidMount() {
-    axios.get(BACKEND_URL).then((data) => {
-      this.setState({
-        status: data.data.status,
-      });
-    });
-  }
+import routes from '../config/routes';
 
-  render() {
-    return (
-      <div>
-        Status: {this.state.status}
-      </div>
-    );
-  }
-}
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
+import Navbar from './Navbar';
+import Home from './Home';
+import Auth from './Auth';
+import Dashboard from './Dashboard';
+import NotFound from './NotFound';
+
+const App = () => (
+  <Router>
+    <Fragment>
+      <Navbar />
+      <Switch>
+        <PublicRoute exact path={routes.Home} component={Home} />
+        <PublicRoute path={routes.Auth} component={Auth} />
+        <PrivateRoute path={routes.Dashboard} component={Dashboard} />
+        <Route component={NotFound} />
+      </Switch>
+    </Fragment>
+  </Router>
+);
+
 
 export default App;
+

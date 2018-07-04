@@ -1,0 +1,13 @@
+const AUTH_REQUEST = 'AUTH_REQUEST';
+const AUTH_SUCCESS = 'AUTH_SUCCESS';
+const AUTH_FAILURE = 'AUTH_FAILURE';
+
+
+export const authConstants = {
+  AUTH_REQUEST,
+  AUTH_SUCCESS,
+  AUTH_FAILURE,
+};
+
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+
