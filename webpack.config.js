@@ -3,6 +3,7 @@ const path = require('path');
 const config = {
   context: path.resolve(__dirname, 'src'),
   entry: [
+    'babel-polyfill',
     './index.js',
   ],
   module: {
@@ -17,9 +18,16 @@ const config = {
     ],
   },
   output: {
-    path: __dirname + "/dist",
-    filename: 'bundle.js'
-  }
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+  },
+  devServer: {
+    historyApiFallback: true,
+  },
+  node: {
+    net: 'empty',
+    dns: 'empty',
+  },
 };
 
 module.exports = config;
