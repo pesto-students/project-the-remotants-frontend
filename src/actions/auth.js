@@ -1,19 +1,18 @@
 import axios from 'axios';
+import store from 'store';
 
 import setAuthorizationToken from '../helpers/setAuthorizationToken';
 import decodeToken from '../helpers/decodeToken';
 import { authConstants, SET_CURRENT_USER } from '../config/ActionTypes';
-import { BACKEND_URL } from '../config/constants';
+import { BACKEND_URL, LOCAL_STORAGE_KEY } from '../config/constants';
 
-export function setCurrentUser(user) {
-  return {
-    type: SET_CURRENT_USER,
-    user,
-  };
-}
+export const setCurrentUser = user => ({
+  type: SET_CURRENT_USER,
+  user,
+});
 
-export function registerUser({ email, password }) {
-  return async (dispatch) => {
+export const registerUser = ({ email, password }) => (
+  async (dispatch) => {
     dispatch({ type: authConstants.AUTH_REQUEST });
     try {
       const res = await axios.post(`${BACKEND_URL}/auth/register`, {
@@ -39,16 +38,16 @@ export function registerUser({ email, password }) {
         type: authConstants.AUTH_FAILURE,
         payload: {
           errors: {
-            name: e,
+            name: 'Caught error in Registration',
           },
         },
       });
     }
-  };
-}
+  }
+);
 
-export function loginUser({ email, password }) {
-  return async (dispatch) => {
+export const loginUser = ({ email, password }) => (
+  async (dispatch) => {
     dispatch({ type: authConstants.AUTH_REQUEST });
     try {
       const res = await axios.post(`${BACKEND_URL}/auth/login`, {
@@ -57,12 +56,12 @@ export function loginUser({ email, password }) {
       });
       const { success, errors, token } = res.data;
       if (success === true) {
-        localStorage.setItem('the-remotants', JSON.stringify(token));
-        setAuthorizationToken(token);
+        store.set(LOCAL_STORAGE_KEY, token);
         dispatch({
           type: authConstants.AUTH_SUCCESS,
         });
         dispatch(setCurrentUser(decodeToken(token)));
+        setAuthorizationToken(token);
         return {
           success: true,
         };
@@ -81,7 +80,7 @@ export function loginUser({ email, password }) {
         type: authConstants.AUTH_FAILURE,
         payload: {
           errors: {
-            name: e.message,
+            name: 'Caught error in Login',
           },
         },
       });
@@ -89,13 +88,13 @@ export function loginUser({ email, password }) {
         success: false,
       };
     }
-  };
-}
+  }
+);
 
-export function logoutUser() {
-  return (dispatch) => {
-    localStorage.removeItem('the-remotants');
-    setAuthorizationToken(false);
+export const logoutUser = () => (
+  (dispatch) => {
+    store.remove(LOCAL_STORAGE_KEY);
+    setAuthorizationToken('');
     dispatch(setCurrentUser(''));
-  };
-}
+  }
+);

@@ -1,6 +1,6 @@
 import { authConstants } from '../config/ActionTypes';
 
-const registration = (state = {}, action) => {
+const authentication = (state = {}, action) => {
   switch (action.type) {
     case authConstants.AUTH_REQUEST:
       return { isLoading: true };
@@ -16,4 +16,4 @@ const registration = (state = {}, action) => {
   }
 };
 
-export default registration;
+export default authentication;

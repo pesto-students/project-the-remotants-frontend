@@ -1,10 +1,10 @@
 import jwtDecode from 'jwt-decode';
 
 const decodeToken = (token) => {
-  if (token !== '') {
-    return jwtDecode(token).email;
+  if (token === '') {
+    return '';
   }
-  return '';
+  return jwtDecode(token).email;
 };
 
 export default decodeToken;
