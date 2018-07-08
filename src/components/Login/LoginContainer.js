@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
+import get from 'lodash/get';
 
 import Login from './Login';
 import { loginUser } from '../../actions/auth';
 
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  currentUser: state.currentUser,
+  auth: get(state, 'auth', {}),
+  currentUser: get(state, 'currentUser', {}),
 });
 
 const mapDispatchToProps = {

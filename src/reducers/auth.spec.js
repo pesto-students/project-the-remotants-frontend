@@ -1,20 +1,20 @@
-import login from './auth';
+import authentication from './auth';
 
 import { authConstants } from '../config/ActionTypes';
 
-describe('login reducer', () => {
+describe('Authentication reducer', () => {
   // handle initial state
   test('handle initial state', () => {
-    expect(login(undefined, {})).toEqual({});
+    expect(authentication(undefined, {})).toEqual({});
   });
   test('handle AUTH_REQUEST', () => {
-    expect(login({}, {
+    expect(authentication({}, {
       type: authConstants.AUTH_REQUEST,
     })).toEqual({ isLoading: true });
   });
 
   test('handle AUTH_SUCCESS', () => {
-    expect(login({}, {
+    expect(authentication({}, {
       type: authConstants.AUTH_SUCCESS,
     })).toEqual({
       isLoading: false,
@@ -23,7 +23,7 @@ describe('login reducer', () => {
   });
 
   test('handle AUTH_FAILURE', () => {
-    expect(login({}, {
+    expect(authentication({}, {
       type: authConstants.AUTH_FAILURE,
       payload: {
         errors: {
