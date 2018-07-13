@@ -8,6 +8,12 @@
       {
         "regenerator": true
       }
+    ],
+    [
+      "import", {
+        "libraryName": "antd",
+        "style": true
+      }
     ]
   ]
 }

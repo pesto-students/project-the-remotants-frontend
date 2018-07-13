@@ -11,6 +11,7 @@ import Home from './Home';
 import Auth from './Auth';
 import Dashboard from './Dashboard';
 import NotFound from './NotFound';
+import Footer from '../Footer';
 
 const App = () => (
   <Router>
@@ -22,6 +23,7 @@ const App = () => (
         <PrivateRoute path={routes.Dashboard} component={Dashboard} />
         <Route component={NotFound} />
       </Switch>
+      <Footer />
     </Fragment>
   </Router>
 );
