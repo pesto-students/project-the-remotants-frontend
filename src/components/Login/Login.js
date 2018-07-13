@@ -1,77 +1,78 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Field } from 'react-final-form';
+import { Form, Icon, Input, Button, Row } from 'antd';
+import './Login.css';
 
-import validations from '../../helpers/authValidation';
+const FormItem = Form.Item;
 
-class Login extends Component {
+class Login extends React.Component {
   state = {
     errors: '',
   }
-  onLogin = async (formData) => {
-    try {
-      const { success } = await this.props.loginUser(formData);
-      if (success === true) {
-        this.props.history.push('/dashboard');
+  onLogin = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields(async (err, values) => {
+      if (!err) {
+        const email = values.loginEmail;
+        const password = values.loginPassword;
+        try {
+          const { success } = await this.props.loginUser({ email, password });
+          if (success === true) {
+            this.props.history.push('/dashboard');
+          }
+        } catch (error) {
+          this.setState({
+            errors: 'An error occurred while logging in!',
+          });
+        }
+      } else {
+        this.setState({
+          errors: 'An error occurred while logging in!',
+        });
       }
-    } catch (e) {
-      this.setState({
-        errors: 'An error occurred while logging in!',
-      });
-    }
+    });
   }
+
   render() {
+    const { getFieldDecorator } = this.props.form;
     return (
-      <Fragment>
-        {(this.state.errors !== '') && <p>{this.state.errors}</p>}
-        <Form
-          onSubmit={this.onLogin}
-          validate={validations.validateInput}
-          render={({
-            handleSubmit, form, submitting, pristine,
-          }) => (
-            <form onSubmit={handleSubmit}>
-              <Field name="email">
-                {({ input, meta }) => (
-                  <div>
-                    <input {...input} type="email" placeholder="Enter your email" />
-                    {meta.error && meta.touched && <span>{meta.error}</span>}
-                  </div>
-                )}
-              </Field>
-              <Field name="password">
-                {({ input, meta }) => (
-                  <div>
-                    <input {...input} type="password" placeholder="Enter your password" />
-                    {meta.error && meta.touched && <span>{meta.error}</span>}
-                  </div>
-                )}
-              </Field>
-              <div className="buttons">
-                <button type="submit" disabled={submitting}>
-                  Login
-                </button>
-                <button
-                  type="button"
-                  onClick={form.reset}
-                  disabled={submitting || pristine}
-                >
-                  Reset
-                </button>
-              </div>
-            </form>
-          )}
-        />
-      </Fragment>
+      <Row >
+        <Fragment>
+          {(this.state.errors !== '') && <p>{this.state.errors}</p>}
+          <Form onSubmit={this.onLogin} className="login-form">
+            <FormItem>
+              {getFieldDecorator('loginEmail', {
+                rules: [{ required: true, message: 'Please input your email!' }],
+              })(<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="email" placeholder="Email" />)}
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator('loginPassword', {
+                rules: [{ required: true, message: 'Please input your Password!' }],
+              })(<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />)}
+            </FormItem>
+            <FormItem>
+              <Button type="primary" htmlType="submit" className="login-form-button">
+                Log in
+              </Button>
+            </FormItem>
+          </Form>
+        </Fragment>
+      </Row>
     );
   }
 }
 
+const WrappedNormalLoginForm = Form.create()(Login);
+
 Login.propTypes = {
+  form: PropTypes.shape({
+    getFieldDecorator: PropTypes.func.isRequired,
+    validateFields: PropTypes.func.isRequired,
+  }).isRequired,
   loginUser: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default Login;
+export default WrappedNormalLoginForm;

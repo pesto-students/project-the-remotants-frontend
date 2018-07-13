@@ -1,74 +1,71 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Field } from 'react-final-form';
+import { Form, Icon, Input, Button, Row } from 'antd';
 
-import validations from '../../helpers/authValidation';
+const FormItem = Form.Item;
 
-class Signup extends Component {
+class Signup extends React.Component {
   state = {
     errors: '',
   }
-  onSignup = async (formData) => {
-    try {
-      await this.props.registerUser(formData);
-    } catch (e) {
-      this.setState({
-        errors: 'An error occurred while registering!',
-      });
-    }
+  onSignup = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields(async (err, values) => {
+      if (!err) {
+        const email = values.registerEmail;
+        const password = values.registerPassword;
+        try {
+          await this.props.registerUser({ email, password });
+        } catch (error) {
+          this.setState({
+            errors: 'An error occurred while registering!',
+          });
+        }
+      } else {
+        this.setState({
+          errors: 'An error occurred while registering!',
+        });
+      }
+    });
   }
+
   render() {
+    const { getFieldDecorator } = this.props.form;
     return (
-      <Fragment>
-        {(this.state.errors !== '') && <p>{this.state.errors}</p>}
-        <Form
-          onSubmit={this.onSignup}
-          validate={validations.validateInput}
-          render={({
-            handleSubmit, form, submitting, pristine,
-          }) => (
-            <form onSubmit={handleSubmit}>
-              <Field name="email">
-                {({ input, meta }) => (
-                  <div>
-                    <input {...input} type="email" placeholder="Enter your email" />
-                    {meta.error && meta.touched && <span>{meta.error}</span>}
-                  </div>
-                )}
-              </Field>
-              <Field name="password">
-                {({ input, meta }) => (
-                  <div>
-                    <input {...input} type="password" placeholder="Enter your password" />
-                    {meta.error && meta.touched && <span>{meta.error}</span>}
-                  </div>
-                )}
-              </Field>
-              <div className="buttons">
-                <button type="submit" disabled={submitting}>
-                  Signup
-                </button>
-                <button
-                  type="button"
-                  onClick={form.reset}
-                  disabled={submitting || pristine}
-                >
-                  Reset
-                </button>
-              </div>
-            </form>
-          )}
-        />
-      </Fragment>
+      <Row >
+        <Fragment>
+          {(this.state.errors !== '') && <p>{this.state.errors}</p>}
+          <Form onSubmit={this.onSignup} className="signup-form">
+            <FormItem>
+              {getFieldDecorator('registerEmail', {
+                rules: [{ required: true, message: 'Please input your email!' }],
+              })(<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="email" placeholder="Email" />)}
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator('registerPassword', {
+                rules: [{ required: true, message: 'Please input your Password!' }],
+              })(<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />)}
+            </FormItem>
+            <FormItem>
+              <Button type="primary" htmlType="submit" className="signup-form-button">
+                Sign Up
+              </Button>
+            </FormItem>
+          </Form>
+        </Fragment>
+      </Row>
     );
   }
 }
 
+const WrappedNormalSignupForm = Form.create()(Signup);
+
 Signup.propTypes = {
-  registerUser: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
+  form: PropTypes.shape({
+    getFieldDecorator: PropTypes.func.isRequired,
+    validateFields: PropTypes.func.isRequired,
   }).isRequired,
+  registerUser: PropTypes.func.isRequired,
 };
 
-export default Signup;
+export default WrappedNormalSignupForm;
