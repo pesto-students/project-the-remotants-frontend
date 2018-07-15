@@ -1,62 +1,72 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Icon, Input, Button, Row } from 'antd';
 import './Login.css';
+
+import { successNotify, errorNotify } from '../../helpers/messageNotify';
+import routes from '../../config/routes';
+
 
 const FormItem = Form.Item;
 
 class Login extends React.Component {
   state = {
-    errors: '',
-  }
+    isLoading: false,
+  };
   onLogin = (e) => {
     e.preventDefault();
+    this.setState({
+      isLoading: true,
+    });
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
         const email = values.loginEmail;
         const password = values.loginPassword;
         try {
-          const { success } = await this.props.loginUser({ email, password });
-          if (success === true) {
-            this.props.history.push('/dashboard');
+          const response = await this.props.loginUser({ email, password });
+          if (response.success === true) {
+            successNotify(response.message);
+            this.props.history.push(routes.Setup);
+          } else {
+            errorNotify(response.errors.name);
           }
         } catch (error) {
           this.setState({
-            errors: 'An error occurred while logging in!',
+            isLoading: false,
           });
+          errorNotify('An error occurred while logging in!');
         }
       } else {
         this.setState({
-          errors: 'An error occurred while logging in!',
+          isLoading: false,
         });
+        errorNotify('An error occurred while logging in!');
       }
     });
   }
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { isLoading } = this.state;
     return (
-      <Row >
-        <Fragment>
-          {(this.state.errors !== '') && <p>{this.state.errors}</p>}
-          <Form onSubmit={this.onLogin} className="login-form">
-            <FormItem>
-              {getFieldDecorator('loginEmail', {
-                rules: [{ required: true, message: 'Please input your email!' }],
-              })(<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="email" placeholder="Email" />)}
-            </FormItem>
-            <FormItem>
-              {getFieldDecorator('loginPassword', {
-                rules: [{ required: true, message: 'Please input your Password!' }],
-              })(<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />)}
-            </FormItem>
-            <FormItem>
-              <Button type="primary" htmlType="submit" className="login-form-button">
-                Log in
-              </Button>
-            </FormItem>
-          </Form>
-        </Fragment>
+      <Row>
+        <Form onSubmit={this.onLogin}>
+          <FormItem>
+            {getFieldDecorator('loginEmail', {
+              rules: [{ required: true, message: 'Please input your email!' }],
+            })(<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="email" placeholder="Email" />)}
+          </FormItem>
+          <FormItem>
+            {getFieldDecorator('loginPassword', {
+              rules: [{ required: true, message: 'Please input your Password!' }],
+            })(<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />)}
+          </FormItem>
+          <FormItem>
+            <Button loading={isLoading} type="primary" htmlType="submit">
+              LOG IN
+            </Button>
+          </FormItem>
+        </Form>
       </Row>
     );
   }

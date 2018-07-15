@@ -1,13 +1,10 @@
-const AUTH_REQUEST = 'AUTH_REQUEST';
-const AUTH_SUCCESS = 'AUTH_SUCCESS';
-const AUTH_FAILURE = 'AUTH_FAILURE';
-
-
-export const authConstants = {
-  AUTH_REQUEST,
-  AUTH_SUCCESS,
-  AUTH_FAILURE,
-};
-
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+
+const ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
+const DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE';
+
+export const flashMessageConstants = {
+  ADD_FLASH_MESSAGE,
+  DELETE_FLASH_MESSAGE,
+};
 

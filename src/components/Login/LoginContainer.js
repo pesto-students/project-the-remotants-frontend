@@ -6,7 +6,6 @@ import { loginUser } from '../../actions/auth';
 
 
 const mapStateToProps = state => ({
-  auth: get(state, 'auth', {}),
   currentUser: get(state, 'currentUser', {}),
 });
 

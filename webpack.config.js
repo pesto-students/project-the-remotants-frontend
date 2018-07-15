@@ -9,7 +9,6 @@ const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './src/conf
 const config = {
   context: path.resolve(__dirname, 'src'),
   entry: [
-    'babel-polyfill',
     './index.js',
   ],
   resolve: {
