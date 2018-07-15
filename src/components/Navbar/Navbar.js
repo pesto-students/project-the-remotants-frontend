@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Menu, Icon, Button } from 'antd';
 
+import routes from '../../config/routes';
+
 
 class NavBar extends React.Component {
   render() {
@@ -10,14 +12,23 @@ class NavBar extends React.Component {
     return (
       <Menu
         mode="horizontal"
-        style={{ marginBottom: '50px' }}
+        style={{ lineHeight: '64px', padding: '0 50px' }}
       >
         {
           isAuthenticated === false &&
           <Menu.Item key="home">
             <Icon type="home" />
-            <NavLink style={{ display: 'inline' }} to="/">
+            <NavLink style={{ display: 'inline' }} to={routes.Home}>
               Home
+            </NavLink>
+          </Menu.Item>
+        }
+        {
+          isAuthenticated &&
+          <Menu.Item key="dashboard">
+            <Icon type="dashboard" />
+            <NavLink style={{ display: 'inline' }} to={routes.Dashboard}>
+              Dashboard
             </NavLink>
           </Menu.Item>
         }
@@ -31,17 +42,11 @@ class NavBar extends React.Component {
             </Menu.Item> :
             <Menu.Item key="SignUpOrLogin">
               <Icon type="login" />
-              <NavLink style={{ display: 'inline' }} to="/auth">
+              <NavLink style={{ display: 'inline' }} to={routes.Auth}>
                 Signup/Login
               </NavLink>
             </Menu.Item>
         }
-        <Menu.Item key="dashboard">
-          <Icon type="dashboard" />
-          <NavLink style={{ display: 'inline' }} to="/dashboard">
-            Dashboard
-          </NavLink>
-        </Menu.Item>
       </Menu>
     );
   }

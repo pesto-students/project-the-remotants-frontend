@@ -3,7 +3,7 @@ import store from 'store';
 
 import setAuthorizationToken from '../helpers/setAuthorizationToken';
 import decodeToken from '../helpers/decodeToken';
-import { authConstants, SET_CURRENT_USER } from '../config/ActionTypes';
+import { SET_CURRENT_USER } from '../config/ActionTypes';
 import { BACKEND_URL, LOCAL_STORAGE_KEY } from '../config/constants';
 import routes from '../config/routes';
 
@@ -12,44 +12,8 @@ export const setCurrentUser = user => ({
   user,
 });
 
-export const registerUser = ({ email, password }) => (
-  async (dispatch) => {
-    dispatch({ type: authConstants.AUTH_REQUEST });
-    try {
-      const res = await axios.post(`${BACKEND_URL}${routes.Register}`, {
-        email,
-        password,
-      });
-      const { success, errors } = res.data;
-
-      if (success === true) {
-        dispatch({
-          type: authConstants.AUTH_SUCCESS,
-        });
-      } else {
-        dispatch({
-          type: authConstants.AUTH_FAILURE,
-          payload: {
-            errors,
-          },
-        });
-      }
-    } catch (e) {
-      dispatch({
-        type: authConstants.AUTH_FAILURE,
-        payload: {
-          errors: {
-            name: 'Caught error in Registration',
-          },
-        },
-      });
-    }
-  }
-);
-
 export const loginUser = ({ email, password }) => (
   async (dispatch) => {
-    dispatch({ type: authConstants.AUTH_REQUEST });
     try {
       const res = await axios.post(`${BACKEND_URL}${routes.Login}`, {
         email,
@@ -58,35 +22,23 @@ export const loginUser = ({ email, password }) => (
       const { success, errors, token } = res.data;
       if (success === true) {
         store.set(LOCAL_STORAGE_KEY, token);
-        dispatch({
-          type: authConstants.AUTH_SUCCESS,
-        });
         dispatch(setCurrentUser(decodeToken(token)));
         setAuthorizationToken(token);
         return {
           success: true,
+          message: 'Login successfull!',
         };
       }
-      dispatch({
-        type: authConstants.AUTH_FAILURE,
-        payload: {
-          errors,
-        },
-      });
       return {
         success: false,
+        errors,
       };
     } catch (e) {
-      dispatch({
-        type: authConstants.AUTH_FAILURE,
-        payload: {
-          errors: {
-            name: 'Caught error in Login',
-          },
-        },
-      });
       return {
         success: false,
+        errors: {
+          name: 'Caught error in Login',
+        },
       };
     }
   }

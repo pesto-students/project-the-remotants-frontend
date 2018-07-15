@@ -5,7 +5,7 @@ import Auth from './Auth';
 
 
 const mapStateToProps = state => ({
-  auth: get(state, 'auth', {}),
+  flashMessage: get(state, 'flashMessage', []),
 });
 
 export default connect(mapStateToProps)(Auth);

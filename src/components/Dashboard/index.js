@@ -1,3 +1,3 @@
-import Dashboard from './Dashboard';
+import DashboardContainer from './DashboardContainer';
 
-export default Dashboard;
+export default DashboardContainer;
