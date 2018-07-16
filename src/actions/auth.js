@@ -5,6 +5,7 @@ import setAuthorizationToken from '../helpers/setAuthorizationToken';
 import decodeToken from '../helpers/decodeToken';
 import { authConstants, SET_CURRENT_USER } from '../config/ActionTypes';
 import { BACKEND_URL, LOCAL_STORAGE_KEY } from '../config/constants';
+import routes from '../config/routes';
 
 export const setCurrentUser = user => ({
   type: SET_CURRENT_USER,
@@ -15,7 +16,7 @@ export const registerUser = ({ email, password }) => (
   async (dispatch) => {
     dispatch({ type: authConstants.AUTH_REQUEST });
     try {
-      const res = await axios.post(`${BACKEND_URL}/auth/register`, {
+      const res = await axios.post(`${BACKEND_URL}${routes.Register}`, {
         email,
         password,
       });
@@ -50,7 +51,7 @@ export const loginUser = ({ email, password }) => (
   async (dispatch) => {
     dispatch({ type: authConstants.AUTH_REQUEST });
     try {
-      const res = await axios.post(`${BACKEND_URL}/auth/login`, {
+      const res = await axios.post(`${BACKEND_URL}${routes.Login}`, {
         email,
         password,
       });
