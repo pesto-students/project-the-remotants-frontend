@@ -1,7 +1,11 @@
+const Auth = '/auth';
+
 const routes = {
   Home: '/',
-  Auth: '/auth',
+  Auth: `${Auth}`,
   Dashboard: '/dashboard',
+  Register: `${Auth}/register`,
+  Login: `${Auth}/login`,
 };
 
 export default routes;
