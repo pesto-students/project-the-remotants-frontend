@@ -13,14 +13,13 @@ import rootReducer from './reducers';
 import setAuthorizationToken from '../src/helpers/setAuthorizationToken';
 import decodeToken from '../src/helpers/decodeToken';
 import { setCurrentUser } from '../src/actions/auth';
-import { LOCAL_STORAGE_KEY } from '../src/config/constants';
+import { LOCAL_STORAGE_AUTH } from '../src/config/constants';
 
 const middleware = [thunk];
 if (process.env.NODE_ENV !== 'production') {
   middleware.push(createLogger());
 }
 
-/* eslint no-underscore-dangle: ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] }] */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reduxStore = createStore(
@@ -28,7 +27,7 @@ const reduxStore = createStore(
   composeEnhancers(applyMiddleware(...middleware)),
 );
 
-const authorizationToken = store.get(LOCAL_STORAGE_KEY) || '';
+const authorizationToken = store.get(LOCAL_STORAGE_AUTH) || '';
 
 reduxStore.dispatch(setCurrentUser(decodeToken(authorizationToken)));
 setAuthorizationToken(authorizationToken);

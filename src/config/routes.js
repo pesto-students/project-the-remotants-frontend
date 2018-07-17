@@ -7,7 +7,8 @@ const routes = {
   Dashboard,
   Register: `${Auth}/register`,
   Login: `${Auth}/login`,
-  Setup: '/setup',
+  BasicSetup: '/setup-1',
+  OAuthSetup: '/setup-2',
 };
 
 const dashboardRoutes = {

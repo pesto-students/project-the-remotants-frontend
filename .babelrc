@@ -5,10 +5,10 @@
         "browsers": ["last 2 versions"]
       }
     }],
+    "stage-2",
     "react"
   ],
   "plugins": [
-    "transform-object-rest-spread",
     "transform-class-properties",
     [
       "import", {

@@ -12,7 +12,8 @@ import Dashboard from './Dashboard';
 import NotFound from './NotFound';
 import CustomFooter from '../Footer';
 import FlashMessage from './FlashMessage';
-import Setup from './Setup';
+import BasicSetup from './BasicSetup';
+import OAuthSetup from './OAuthSetup';
 
 
 const { Content, Footer } = Layout;
@@ -27,7 +28,8 @@ const App = () => (
             <Switch>
               <PublicRoute exact path={routes.Home} component={Home} />
               <PublicRoute path={routes.Auth} component={Auth} />
-              <PrivateRoute path={routes.Setup} component={Setup} />
+              <PrivateRoute path={routes.BasicSetup} component={BasicSetup} />
+              <PrivateRoute path={routes.OAuthSetup} component={OAuthSetup} />
               <PrivateRoute path={routes.Dashboard} component={Dashboard} />
               <Route component={NotFound} />
             </Switch>

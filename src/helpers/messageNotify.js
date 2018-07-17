@@ -7,3 +7,7 @@ export const successNotify = (text) => {
 export const errorNotify = (text) => {
   message.error(text);
 };
+
+export const warningNotify = (text) => {
+  message.warning(text);
+};
