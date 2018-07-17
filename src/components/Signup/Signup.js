@@ -4,7 +4,7 @@ import { Form, Icon, Input, Button, Row } from 'antd';
 import axios from 'axios';
 
 import { successNotify, errorNotify } from '../../helpers/messageNotify';
-import { BACKEND_URL } from '../../config/constants';
+import apiRoutes from '../../config/apiRoutes';
 
 
 const FormItem = Form.Item;
@@ -24,7 +24,7 @@ class Signup extends React.Component {
         const password = values.registerPassword;
 
         try {
-          const response = await axios.post(`${BACKEND_URL}/auth/register`, {
+          const response = await axios.post(apiRoutes.Register, {
             email,
             password,
           });

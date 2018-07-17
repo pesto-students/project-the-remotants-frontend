@@ -5,8 +5,10 @@ import { Switch } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute';
 import Sidebar from './Sidebar';
 import Logout from './Logout';
+import Settings from './Settings';
 import NotFound from '../NotFound';
 import { dashboardRoutes } from '../../config/routes';
+
 
 const { Content } = Layout;
 
@@ -28,6 +30,7 @@ class Dashboard extends Component {
             }}
           >
             <Switch>
+              <PrivateRoute path={dashboardRoutes.Settings} component={Settings} />
               <PrivateRoute path={dashboardRoutes.Logout} component={Logout} />
               <PrivateRoute component={NotFound} />
             </Switch>

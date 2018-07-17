@@ -26,8 +26,11 @@ class Login extends React.Component {
           const response = await this.props.loginUser({ email, password });
           if (response.success === true) {
             successNotify(response.message);
-            this.props.history.push(routes.Setup);
+            this.props.history.push(routes.BasicSetup);
           } else {
+            this.setState({
+              isLoading: false,
+            });
             errorNotify(response.errors.name);
           }
         } catch (error) {

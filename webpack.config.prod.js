@@ -1,10 +1,12 @@
 const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 const lessToJs = require('less-vars-to-js');
 
 const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './src/config/ant-theme-vars.less'), 'utf8'));
+
 
 const config = {
   context: path.resolve(__dirname, 'src'),
@@ -40,16 +42,14 @@ const config = {
     ],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new Dotenv(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    }),
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-  },
-  devServer: {
-    historyApiFallback: true,
-    hot: true,
-    watchContentBase: true,
   },
 };
 

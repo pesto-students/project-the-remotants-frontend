@@ -5,8 +5,7 @@ import expect from 'expect';
 
 import * as actions from '../actions/auth';
 import { SET_CURRENT_USER } from '../config/ActionTypes';
-import { BACKEND_URL } from '../config/constants';
-import routes from '../config/routes';
+import apiRoutes from '../config/apiRoutes';
 
 
 const middlewares = [thunk];
@@ -22,7 +21,7 @@ describe('Test Authentication', () => {
     const email = 'nikhil@theremotants.com';
     const password = 'nikhil';
     fetchMock
-      .getOnce(`${BACKEND_URL}${routes.Login}`, { email, password, headers: { 'content-type': 'application/json' } });
+      .getOnce(apiRoutes.Login, { email, password, headers: { 'content-type': 'application/json' } });
 
     const expectedActions = [
       {
