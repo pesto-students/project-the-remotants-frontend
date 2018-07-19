@@ -13,6 +13,7 @@ const routes = {
 
 const dashboardRoutes = {
   Logout: `${Dashboard}/logout`,
+  Settings: `${Dashboard}/settings`,
 };
 
 export { dashboardRoutes };

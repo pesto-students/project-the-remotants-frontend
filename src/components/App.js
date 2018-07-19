@@ -2,18 +2,22 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 
-import routes from '../config/routes';
+import routes, { dashboardRoutes } from '../config/routes';
 
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 import Home from './Home';
 import Auth from './Auth';
-import Dashboard from './Dashboard';
 import NotFound from './NotFound';
 import CustomFooter from '../Footer';
 import FlashMessage from './FlashMessage';
 import BasicSetup from './BasicSetup';
 import OAuthSetup from './OAuthSetup';
+
+import DashboardRoute from './DashboardRoute';
+import DashboardHome from './Dashboard/Home';
+import Settings from './Dashboard/Settings';
+import Logout from './Dashboard/Logout';
 
 
 const { Content, Footer } = Layout;
@@ -30,7 +34,11 @@ const App = () => (
               <PublicRoute path={routes.Auth} component={Auth} />
               <PrivateRoute path={routes.BasicSetup} component={BasicSetup} />
               <PrivateRoute path={routes.OAuthSetup} component={OAuthSetup} />
-              <PrivateRoute path={routes.Dashboard} component={Dashboard} />
+
+              <DashboardRoute exact path={routes.Dashboard} component={DashboardHome} />
+              <DashboardRoute path={dashboardRoutes.Settings} component={Settings} />
+              <DashboardRoute path={dashboardRoutes.Logout} component={Logout} />
+
               <Route component={NotFound} />
             </Switch>
           </Content>

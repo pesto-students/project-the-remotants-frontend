@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
+import { Layout, Breadcrumb } from 'antd';
 
 import apiRoutes from '../../../config/apiRoutes';
 
+
+const { Content } = Layout;
 
 class Settings extends Component {
   componentDidMount = async () => {
@@ -15,7 +18,22 @@ class Settings extends Component {
 
   render() {
     return (
-      <div>Hello</div>
+      <Fragment>
+        <Breadcrumb style={{ margin: '16px 0' }}>
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+          <Breadcrumb.Item>Settings</Breadcrumb.Item>
+        </Breadcrumb>
+        <Content style={{
+          background: '#fff',
+          padding: 24,
+          margin: 0,
+          minHeight: 280,
+          }}
+        >
+          Settings
+        </Content>
+      </Fragment>
     );
   }
 }
