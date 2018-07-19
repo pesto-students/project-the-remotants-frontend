@@ -3,8 +3,16 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 const ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
 const DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE';
 
-export const flashMessageConstants = {
+export const flashMessageActions = {
   ADD_FLASH_MESSAGE,
   DELETE_FLASH_MESSAGE,
+};
+
+const VIEW_CURRENT_USER_PROJECTS = 'VIEW_CURRENT_USER_PROJECTS';
+const VIEW_PROJECT_COMMITS = 'VIEW_PROJECT_COMMITS';
+
+export const projectActions = {
+  VIEW_CURRENT_USER_PROJECTS,
+  VIEW_PROJECT_COMMITS,
 };
 

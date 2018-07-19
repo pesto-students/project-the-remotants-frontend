@@ -1,11 +1,11 @@
-import { flashMessageConstants } from '../config/ActionTypes';
+import { flashMessageActions } from '../config/ActionTypes';
 
 export const addFlashMessage = message => ({
-  type: flashMessageConstants.ADD_FLASH_MESSAGE,
+  type: flashMessageActions.ADD_FLASH_MESSAGE,
   message,
 });
 
 export const deleteFlashMessage = id => ({
-  type: flashMessageConstants.DELETE_FLASH_MESSAGE,
+  type: flashMessageActions.DELETE_FLASH_MESSAGE,
   id,
 });
