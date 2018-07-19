@@ -11,10 +11,10 @@ const Home = () => (
       <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
     </Breadcrumb>
     <Content style={{
-      background: '#fff',
-      padding: 24,
-      margin: 0,
-      minHeight: 280,
+        background: '#fff',
+        padding: 24,
+        margin: 0,
+        minHeight: 480,
       }}
     >
       Home

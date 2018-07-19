@@ -6,6 +6,8 @@ import decodeToken from '../helpers/decodeToken';
 import { SET_CURRENT_USER } from '../config/ActionTypes';
 import { LOCAL_STORAGE_AUTH } from '../config/constants';
 import apiRoutes from '../config/apiRoutes';
+import createSuccessMessage from '../helpers/createSuccessMessage';
+import createErrorMessage from '../helpers/createErrorMessage';
 
 export const setCurrentUser = user => ({
   type: SET_CURRENT_USER,
@@ -24,22 +26,14 @@ export const loginUser = ({ email, password }) => (
         store.set(LOCAL_STORAGE_AUTH, token);
         dispatch(setCurrentUser(decodeToken(token)));
         setAuthorizationToken(token);
-        return {
-          success: true,
-          message: 'Login successfull!',
-        };
+        return createSuccessMessage('message', 'Login successfull!');
       }
       return {
         success: false,
         errors,
       };
     } catch (e) {
-      return {
-        success: false,
-        errors: {
-          name: 'Caught error in Login',
-        },
-      };
+      return createErrorMessage('Caught error in Login');
     }
   }
 );

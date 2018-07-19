@@ -12,8 +12,9 @@ const routes = {
 };
 
 const dashboardRoutes = {
-  Logout: `${Dashboard}/logout`,
-  Settings: `${Dashboard}/settings`,
+  Logout: `${Dashboard}/profile/logout`,
+  Settings: `${Dashboard}/profile/settings`,
+  Project: `${Dashboard}/projects/view`,
 };
 
 export { dashboardRoutes };

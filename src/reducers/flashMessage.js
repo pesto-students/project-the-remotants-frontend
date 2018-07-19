@@ -1,9 +1,9 @@
 import shortid from 'shortid';
-import { flashMessageConstants } from '../config/ActionTypes';
+import { flashMessageActions } from '../config/ActionTypes';
 
 const flashMessage = (state = {}, action) => {
   switch (action.type) {
-    case flashMessageConstants.ADD_FLASH_MESSAGE:
+    case flashMessageActions.ADD_FLASH_MESSAGE:
       return {
         id: shortid.generate(),
         type: action.message.type,

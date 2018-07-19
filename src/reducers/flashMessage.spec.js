@@ -1,5 +1,5 @@
 import flashMessage from './flashMessage';
-import { flashMessageConstants } from '../config/ActionTypes';
+import { flashMessageActions } from '../config/ActionTypes';
 
 describe('flashMessage reducer', () => {
   // handle initial state
@@ -8,7 +8,7 @@ describe('flashMessage reducer', () => {
   });
   test('handle addFlashMessage with message provided', () => {
     expect(flashMessage({}, {
-      type: flashMessageConstants.ADD_FLASH_MESSAGE,
+      type: flashMessageActions.ADD_FLASH_MESSAGE,
       message: {
         type: 'success',
         text: 'test',

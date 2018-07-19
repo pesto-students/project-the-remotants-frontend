@@ -132,7 +132,7 @@ class OAuthSetup extends Component {
                     onClick={this.wakatimeClickHandler}
                     href={authConfig.WAKATIME_OAUTH_URI}
                   >
-                    <img style={{ height: '14px' }} alt="" src="/public/images/wakatime.svg" />&nbsp;Connect with WakaTime
+                    <img style={{ height: '14px' }} alt="wakatime" src="/public/images/wakatime.svg" />&nbsp;Connect with WakaTime
                   </Anchor>
                 </StyledButton>
               </Col>

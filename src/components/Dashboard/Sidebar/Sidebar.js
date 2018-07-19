@@ -13,32 +13,32 @@ class Sidebar extends Component {
     this.props.history.push(`${routes.Dashboard}/${key}`);
   }
   render() {
+    const [, , subMenu, item] = this.props.match.path.split('/');
+    const menuItem = `${subMenu}/${item}`;
     return (
       <Sider width={200} style={{ background: '#fff' }}>
         <Menu
           mode="inline"
-          defaultSelectedKeys={['']}
-          defaultOpenKeys={['']}
+          defaultSelectedKeys={[menuItem]}
+          defaultOpenKeys={[subMenu]}
           style={{ height: '100%', borderRight: 0 }}
         >
           <SubMenu key="profile" title={<span><Icon type="user" />Profile</span>}>
-            <Menu.Item key="settings" onClick={this.onClickHandler}>
+            <Menu.Item key="profile/settings" onClick={this.onClickHandler}>
               Settings
             </Menu.Item>
-            <Menu.Item key="organisation" onClick={this.onClickHandler}>
+            <Menu.Item key="profile/organisation" onClick={this.onClickHandler}>
                 Organisation
             </Menu.Item>
-            <Menu.Item key="logout" onClick={this.onClickHandler}>
+            <Menu.Item key="profile/logout" onClick={this.onClickHandler}>
               Logout
             </Menu.Item>
           </SubMenu>
           <SubMenu key="projects" title={<span><Icon type="laptop" />Projects</span>}>
             <Menu.Item key="projects/view" onClick={this.onClickHandler}>View</Menu.Item>
-            <Menu.Item key="project/manage" onClick={this.onClickHandler}>Manage</Menu.Item>
           </SubMenu>
-          <SubMenu key="employees" title={<span><Icon type="notification" />Employees</span>}>
-            <Menu.Item key="employees/view" onClick={this.onClickHandler}>View</Menu.Item>
-            <Menu.Item key="employees/manage" onClick={this.onClickHandler}>Manage</Menu.Item>
+          <SubMenu key="activity" title={<span><Icon type="notification" />Coding Activity</span>}>
+            <Menu.Item key="activity/view" onClick={this.onClickHandler}>View</Menu.Item>
           </SubMenu>
         </Menu>
       </Sider>
@@ -49,6 +49,9 @@ class Sidebar extends Component {
 Sidebar.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    path: PropTypes.string.isRequired,
   }).isRequired,
 };
 
