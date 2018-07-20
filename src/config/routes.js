@@ -15,6 +15,7 @@ const dashboardRoutes = {
   Logout: `${Dashboard}/profile/logout`,
   Settings: `${Dashboard}/profile/settings`,
   Project: `${Dashboard}/projects/view`,
+  Activity: `${Dashboard}/activity/view`,
 };
 
 export { dashboardRoutes };

@@ -7,6 +7,8 @@ const apiRoutes = {
   BasicSetup: `${URLS.BACKEND_URL}/dashboard/setup-1`,
   Wakatime: {
     CurrentUserProjects: `${WakatimeAPI}/users/current/projects`,
+    CurrentUserDurations: `${WakatimeAPI}/users/current/durations`,
+    CurrentUserWakatimeDetails: `${WakatimeAPI}/users/current`,
   },
 };
 

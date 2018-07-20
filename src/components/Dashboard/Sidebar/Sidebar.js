@@ -27,9 +27,6 @@ class Sidebar extends Component {
             <Menu.Item key="profile/settings" onClick={this.onClickHandler}>
               Settings
             </Menu.Item>
-            <Menu.Item key="profile/organisation" onClick={this.onClickHandler}>
-                Organisation
-            </Menu.Item>
             <Menu.Item key="profile/logout" onClick={this.onClickHandler}>
               Logout
             </Menu.Item>
