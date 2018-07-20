@@ -6,6 +6,7 @@ import projects from './projects';
 import durations from './durations';
 import userDetails from './userDetails';
 import organisations from './organisations';
+import issues from './issues';
 
 const rootReducer = combineReducers({
   currentUser,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   durations,
   userDetails,
   organisations,
+  issues,
 });
 
 export default rootReducer;

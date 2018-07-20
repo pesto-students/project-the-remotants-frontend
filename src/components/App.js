@@ -25,6 +25,7 @@ import OrganisationView from './Dashboard/Organisation/View';
 import OrganisationCreate from './Dashboard/Organisation/Create';
 import OrganisationInvite from './Dashboard/Organisation/Invite';
 import OrganisationStats from './Dashboard/Organisation/Stats';
+import Issues from './Dashboard/Issues';
 
 
 const { Content, Footer } = Layout;
@@ -66,6 +67,8 @@ const App = () => (
               />
 
               <PublicRoute path={routes.InviteAuth} component={InviteAuth} />
+
+              <DashboardRoute path={dashboardRoutes.Issues} component={Issues} />
 
               <Route component={NotFound} />
             </Switch>
