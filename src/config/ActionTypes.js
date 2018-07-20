@@ -34,3 +34,8 @@ export const organisationActions = {
   VIEW_CURRENT_USER_ORGANISATIONS,
 };
 
+const VIEW_CURRENT_USER_ISSUES = 'VIEW_CURRENT_USER_ISSUES';
+
+export const issuesActions = {
+  VIEW_CURRENT_USER_ISSUES,
+};
