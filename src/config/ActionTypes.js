@@ -16,3 +16,15 @@ export const projectActions = {
   VIEW_PROJECT_COMMITS,
 };
 
+const VIEW_CURRENT_USER_DURATIONS = 'VIEW_CURRENT_USER_DURATIONS';
+
+export const durationActions = {
+  VIEW_CURRENT_USER_DURATIONS,
+};
+
+const VIEW_CURRENT_USER_WAKATIME_DETAILS = 'VIEW_CURRENT_USER_WAKATIME_DETAILS';
+
+export const userDetailsActions = {
+  VIEW_CURRENT_USER_WAKATIME_DETAILS,
+};
+

@@ -19,6 +19,7 @@ import DashboardHome from './Dashboard/Home';
 import Settings from './Dashboard/Settings';
 import Logout from './Dashboard/Logout';
 import Project from './Dashboard/Project';
+import Activity from './Dashboard/Activity';
 
 
 const { Content, Footer } = Layout;
@@ -40,6 +41,7 @@ const App = () => (
               <DashboardRoute path={dashboardRoutes.Settings} component={Settings} />
               <DashboardRoute path={dashboardRoutes.Logout} component={Logout} />
               <DashboardRoute path={dashboardRoutes.Project} component={Project} />
+              <DashboardRoute path={dashboardRoutes.Activity} component={Activity} />
 
               <Route component={NotFound} />
             </Switch>
