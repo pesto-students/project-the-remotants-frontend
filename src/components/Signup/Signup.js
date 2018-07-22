@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Icon, Input, Button, Row } from 'antd';
-import axios from 'axios';
+import { Form, Icon, Input, Row } from 'antd';
 
 import { successNotify, errorNotify } from '../../helpers/messageNotify';
-import apiRoutes from '../../config/apiRoutes';
+import StyledComponents from '../StyledComponents';
+import routes from '../../config/routes';
 
 
-const FormItem = Form.Item;
+const { LargeFormItem, LargeButton } = StyledComponents;
 
 class Signup extends React.Component {
   state = {
@@ -24,26 +24,24 @@ class Signup extends React.Component {
         const password = values.registerPassword;
 
         try {
-          const response = await axios.post(apiRoutes.Register, {
+          const response = await this.props.registerUser({
             email,
             password,
           });
-          const { success, errors } = response.data;
-
-          this.setState({
-            isLoading: false,
-          });
-
-          if (success === true) {
-            successNotify('Registration successfull!');
+          if (response.success === true) {
+            successNotify(response.message);
+            this.props.history.push(routes.BasicSetup);
           } else {
-            errorNotify(errors.name);
+            this.setState({
+              isLoading: false,
+            });
+            errorNotify(response.errors.name);
           }
         } catch (error) {
           this.setState({
             isLoading: false,
           });
-          errorNotify('An error occurred while registering!');
+          errorNotify('An error occurred while logging in!');
         }
       } else {
         this.setState({
@@ -60,21 +58,21 @@ class Signup extends React.Component {
     return (
       <Row>
         <Form onSubmit={this.onSignup}>
-          <FormItem>
+          <LargeFormItem>
             {getFieldDecorator('registerEmail', {
               rules: [{ required: true, message: 'Please input your email!' }],
             })(<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="email" placeholder="Email" />)}
-          </FormItem>
-          <FormItem>
+          </LargeFormItem>
+          <LargeFormItem>
             {getFieldDecorator('registerPassword', {
               rules: [{ required: true, message: 'Please input your password!' }],
             })(<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />)}
-          </FormItem>
-          <FormItem>
-            <Button loading={isLoading} type="primary" htmlType="submit">
+          </LargeFormItem>
+          <LargeFormItem>
+            <LargeButton loading={isLoading} type="primary" htmlType="submit">
               SIGN UP
-            </Button>
-          </FormItem>
+            </LargeButton>
+          </LargeFormItem>
         </Form>
       </Row>
     );
@@ -87,6 +85,10 @@ Signup.propTypes = {
   form: PropTypes.shape({
     getFieldDecorator: PropTypes.func.isRequired,
     validateFields: PropTypes.func.isRequired,
+  }).isRequired,
+  registerUser: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Icon, Input, Button, Row } from 'antd';
-import './Login.css';
+import { Form, Icon, Input, Row } from 'antd';
 
 import { successNotify, errorNotify } from '../../helpers/messageNotify';
 import routes from '../../config/routes';
+import StyledComponents from '../StyledComponents';
 
 
-const FormItem = Form.Item;
+const { LargeFormItem, LargeButton } = StyledComponents;
 
 class Login extends React.Component {
   state = {
@@ -26,7 +26,7 @@ class Login extends React.Component {
           const response = await this.props.loginUser({ email, password });
           if (response.success === true) {
             successNotify(response.message);
-            this.props.history.push(routes.BasicSetup);
+            this.props.history.push(routes.Dashboard);
           } else {
             this.setState({
               isLoading: false,
@@ -54,21 +54,21 @@ class Login extends React.Component {
     return (
       <Row>
         <Form onSubmit={this.onLogin}>
-          <FormItem>
+          <LargeFormItem>
             {getFieldDecorator('loginEmail', {
               rules: [{ required: true, message: 'Please input your email!' }],
             })(<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="email" placeholder="Email" />)}
-          </FormItem>
-          <FormItem>
+          </LargeFormItem>
+          <LargeFormItem>
             {getFieldDecorator('loginPassword', {
               rules: [{ required: true, message: 'Please input your Password!' }],
             })(<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />)}
-          </FormItem>
-          <FormItem>
-            <Button loading={isLoading} type="primary" htmlType="submit">
+          </LargeFormItem>
+          <LargeFormItem>
+            <LargeButton loading={isLoading} type="primary" htmlType="submit">
               LOG IN
-            </Button>
-          </FormItem>
+            </LargeButton>
+          </LargeFormItem>
         </Form>
       </Row>
     );
