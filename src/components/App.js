@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 
-import routes, { dashboardRoutes } from '../config/routes';
+import routes, { dashboardRoutes, organisationRoutes } from '../config/routes';
 
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
@@ -13,6 +13,7 @@ import CustomFooter from '../Footer';
 import FlashMessage from './FlashMessage';
 import BasicSetup from './BasicSetup';
 import OAuthSetup from './OAuthSetup';
+import InviteAuth from './InviteAuth';
 
 import DashboardRoute from './DashboardRoute';
 import DashboardHome from './Dashboard/Home';
@@ -20,6 +21,10 @@ import Settings from './Dashboard/Settings';
 import Logout from './Dashboard/Logout';
 import Project from './Dashboard/Project';
 import Activity from './Dashboard/Activity';
+import OrganisationView from './Dashboard/Organisation/View';
+import OrganisationCreate from './Dashboard/Organisation/Create';
+import OrganisationInvite from './Dashboard/Organisation/Invite';
+import OrganisationStats from './Dashboard/Organisation/Stats';
 
 
 const { Content, Footer } = Layout;
@@ -34,14 +39,33 @@ const App = () => (
             <Switch>
               <PublicRoute exact path={routes.Home} component={Home} />
               <PublicRoute path={routes.Auth} component={Auth} />
+
               <PrivateRoute path={routes.BasicSetup} component={BasicSetup} />
               <PrivateRoute path={routes.OAuthSetup} component={OAuthSetup} />
 
               <DashboardRoute exact path={routes.Dashboard} component={DashboardHome} />
               <DashboardRoute path={dashboardRoutes.Settings} component={Settings} />
               <DashboardRoute path={dashboardRoutes.Logout} component={Logout} />
-              <DashboardRoute path={dashboardRoutes.Project} component={Project} />
-              <DashboardRoute path={dashboardRoutes.Activity} component={Activity} />
+              <DashboardRoute path={dashboardRoutes.ProjectView} component={Project} />
+              <DashboardRoute path={dashboardRoutes.ActivityView} component={Activity} />
+              <DashboardRoute
+                path={organisationRoutes.OrganisationView}
+                component={OrganisationView}
+              />
+              <DashboardRoute
+                path={organisationRoutes.OrganisationCreate}
+                component={OrganisationCreate}
+              />
+              <DashboardRoute
+                path={organisationRoutes.OrganisationInvite}
+                component={OrganisationInvite}
+              />
+              <DashboardRoute
+                path={organisationRoutes.OrganisationStats}
+                component={OrganisationStats}
+              />
+
+              <PublicRoute path={routes.InviteAuth} component={InviteAuth} />
 
               <Route component={NotFound} />
             </Switch>

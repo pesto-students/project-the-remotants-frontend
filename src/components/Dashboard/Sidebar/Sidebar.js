@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Layout, Menu, Icon } from 'antd';
 
-import routes from '../../../config/routes';
+import routes, { dashboardSubMenuKeys, dashboardItemKeys } from '../../../config/routes';
 
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 class Sidebar extends Component {
-  onClickHandler = ({ key }) => {
+  onMenuClickHandler = ({ key }) => {
     this.props.history.push(`${routes.Dashboard}/${key}`);
   }
   render() {
@@ -22,20 +22,25 @@ class Sidebar extends Component {
           defaultSelectedKeys={[menuItem]}
           defaultOpenKeys={[subMenu]}
           style={{ height: '100%', borderRight: 0 }}
+          onClick={this.onMenuClickHandler}
         >
-          <SubMenu key="profile" title={<span><Icon type="user" />Profile</span>}>
-            <Menu.Item key="profile/settings" onClick={this.onClickHandler}>
+          <SubMenu key={dashboardSubMenuKeys.Profile} title={<span><Icon type="user" />Profile</span>}>
+            <Menu.Item key={dashboardItemKeys.Settings}>
               Settings
             </Menu.Item>
-            <Menu.Item key="profile/logout" onClick={this.onClickHandler}>
+            <Menu.Item key={dashboardItemKeys.Logout}>
               Logout
             </Menu.Item>
           </SubMenu>
-          <SubMenu key="projects" title={<span><Icon type="laptop" />Projects</span>}>
-            <Menu.Item key="projects/view" onClick={this.onClickHandler}>View</Menu.Item>
+          <SubMenu key={dashboardSubMenuKeys.Projects} title={<span><Icon type="laptop" />Projects</span>}>
+            <Menu.Item key={dashboardItemKeys.ProjectView}>View</Menu.Item>
           </SubMenu>
-          <SubMenu key="activity" title={<span><Icon type="notification" />Coding Activity</span>}>
-            <Menu.Item key="activity/view" onClick={this.onClickHandler}>View</Menu.Item>
+          <SubMenu key={dashboardSubMenuKeys.Activity} title={<span><Icon type="notification" />Coding Activity</span>}>
+            <Menu.Item key={dashboardItemKeys.ActivityView}>View</Menu.Item>
+          </SubMenu>
+          <SubMenu key={dashboardSubMenuKeys.Organisation} title={<span><Icon type="team" />Organisation</span>}>
+            <Menu.Item key={dashboardItemKeys.OrganisationCreate}>Create</Menu.Item>
+            <Menu.Item key={dashboardItemKeys.OrganisationView}>View</Menu.Item>
           </SubMenu>
         </Menu>
       </Sider>

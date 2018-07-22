@@ -5,8 +5,6 @@ import moment from 'moment';
 
 import getFormattedTimeFromSeconds from '../../../helpers/getFormattedTimeFromSeconds';
 
-// import { errorNotify } from '../../../helpers/messageNotify';
-
 
 const { Content } = Layout;
 

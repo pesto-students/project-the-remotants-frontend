@@ -4,15 +4,14 @@ import {
   Breadcrumb,
   Row,
   Col,
-  Badge,
   Tooltip,
 } from 'antd';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import styled from 'styled-components';
-import './Settings.css';
 
 import { errorNotify } from '../../../helpers/messageNotify';
+import StyledComponents from '../../StyledComponents';
 
 
 const { Content } = Layout;
@@ -26,6 +25,8 @@ const StyledAvatar = styled.img`
 const RowWithMargin = styled(Row)`
   margin-top: 20px;
 `;
+
+const { LargeBadge } = StyledComponents;
 
 class Settings extends Component {
   componentDidMount = async () => {
@@ -106,12 +107,12 @@ class Settings extends Component {
                       activeStatus ?
                         (
                           <Tooltip title="active">
-                            <Badge status="success" />
+                            <LargeBadge status="success" />
                           </Tooltip>
                         ) :
                         (
                           <Tooltip title="away">
-                            <Badge status="error" />
+                            <LargeBadge status="error" />
                           </Tooltip>
                         )
                     }

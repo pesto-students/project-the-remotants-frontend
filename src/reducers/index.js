@@ -5,6 +5,7 @@ import flashMessage from './flashMessage';
 import projects from './projects';
 import durations from './durations';
 import userDetails from './userDetails';
+import organisations from './organisations';
 
 const rootReducer = combineReducers({
   currentUser,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   projects,
   durations,
   userDetails,
+  organisations,
 });
 
 export default rootReducer;

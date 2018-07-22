@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Icon, Input, Button, Row, Col, Card } from 'antd';
+import { Form, Icon, Input, Row, Col, Card, Button } from 'antd';
 import axios from 'axios';
 
 import { successNotify, errorNotify } from '../../helpers/messageNotify';
 import routes from '../../config/routes';
 import apiRoutes from '../../config/apiRoutes';
+import StyledComponents from '../StyledComponents';
 
 
-const FormItem = Form.Item;
+const { LargeFormItem, LargeButton } = StyledComponents;
 
 class BasicSetup extends Component {
   state = {
@@ -53,6 +54,9 @@ class BasicSetup extends Component {
       }
     });
   }
+  onContinueHandler = () => {
+    this.props.history.push(routes.OAuthSetup);
+  }
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -64,22 +68,27 @@ class BasicSetup extends Component {
           <Card>
             <h3 style={{ marginBottom: '50px' }}>Please fill your details</h3>
             <Form onSubmit={this.onSubmit}>
-              <FormItem>
+              <LargeFormItem>
                 {getFieldDecorator('name', {
                   rules: [{ required: true, message: 'Please input your name!' }],
                 })(<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="text" placeholder="Name" />)}
-              </FormItem>
-              <FormItem>
+              </LargeFormItem>
+              <LargeFormItem>
                 {getFieldDecorator('username', {
                   rules: [{ required: true, message: 'Please input your unique username!' }],
                 })(<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="text" placeholder="Username" />)}
-              </FormItem>
-              <FormItem>
-                <Button loading={isLoading} type="primary" htmlType="submit" style={{ width: '50%' }}>
+              </LargeFormItem>
+              <LargeFormItem>
+                <LargeButton loading={isLoading} type="primary" htmlType="submit">
                   SUBMIT
-                </Button>
-              </FormItem>
+                </LargeButton>
+              </LargeFormItem>
             </Form>
+            <Row style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '30px' }}>
+              <Button type="primary" onClick={this.onContinueHandler}>
+                Continue<Icon type="right" />
+              </Button>
+            </Row>
           </Card>
         </Col>
       </Row>

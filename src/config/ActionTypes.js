@@ -28,3 +28,9 @@ export const userDetailsActions = {
   VIEW_CURRENT_USER_WAKATIME_DETAILS,
 };
 
+const VIEW_CURRENT_USER_ORGANISATIONS = 'VIEW_CURRENT_USER_ORGANISATIONS';
+
+export const organisationActions = {
+  VIEW_CURRENT_USER_ORGANISATIONS,
+};
+
