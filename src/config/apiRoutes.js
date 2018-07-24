@@ -11,18 +11,22 @@ const apiRoutes = {
   BasicSetup: `${URLS.BACKEND_URL}/dashboard/setup-1`,
   InviteAuth: `${URLS.BACKEND_URL}/invite/auth`,
   Organisation: {
+    Home: OrganisationAPI,
     Setup: `${OrganisationAPI}/setup`,
     List: `${OrganisationAPI}/list`,
     Invite: `${OrganisationAPI}/invite`,
   },
   Wakatime: {
-    CurrentUserProjects: `${WakatimeAPI}/users/current/projects`,
-    CurrentUserDurations: `${WakatimeAPI}/users/current/durations`,
-    CurrentUserWakatimeDetails: `${WakatimeAPI}/users/current`,
+    Projects: `${WakatimeAPI}/users/current/projects`,
+    Durations: `${WakatimeAPI}/users/current/durations`,
+    Details: `${WakatimeAPI}/users/current`,
+    OrganisationMemberStats: `${WakatimeAPI}/users/all`,
+    IfTokenExists: `${WakatimeAPI}/users/checkToken`,
   },
   Github: {
     CurrentUserIssues: `${GithubAPI}/user/issues`,
     CurrentUserRepos: `${GithubAPI}/user/repos`,
+    IfTokenExists: `${GithubAPI}/users/checkToken`,
   },
 };
 

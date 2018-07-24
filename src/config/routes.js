@@ -44,7 +44,8 @@ const organisationRoutes = {
   OrganisationView: `${Dashboard}/${dashboardItemKeys.OrganisationView}`,
   OrganisationCreate: `${Dashboard}/${dashboardItemKeys.OrganisationCreate}`,
   OrganisationInvite: `${Organisation}/:id/add-members`,
-  OrganisationStats: `${Organisation}/:id/stats`,
+  OrganisationTrackUser: `${Organisation}/:id/track-members`,
+  OrganisationStats: `${Organisation}/:id/track-members/:userID`,
 };
 
 

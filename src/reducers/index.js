@@ -8,6 +8,8 @@ import userDetails from './userDetails';
 import organisations from './organisations';
 import issues from './issues';
 import repos from './repos';
+import authToken from './authToken';
+
 
 const rootReducer = combineReducers({
   currentUser,
@@ -18,6 +20,7 @@ const rootReducer = combineReducers({
   organisations,
   issues,
   repos,
+  authToken,
 });
 
 export default rootReducer;

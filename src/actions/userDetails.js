@@ -17,7 +17,7 @@ export const viewCurrentUserWakatimeDetails = () => (
       const config = {
         method: 'GET',
       };
-      const res = await axios(apiRoutes.Wakatime.CurrentUserWakatimeDetails, config);
+      const res = await axios(apiRoutes.Wakatime.Details, config);
       const { success, data, errors } = res.data;
 
       if (success === true) {

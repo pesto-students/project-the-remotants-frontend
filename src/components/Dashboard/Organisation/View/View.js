@@ -17,6 +17,7 @@ import styled from 'styled-components';
 
 import { errorNotify } from '../../../../helpers/messageNotify';
 import { organisationRoutes } from '../../../../config/routes';
+import LoadingCard from '../../../LoadingCard';
 
 
 const { Content } = Layout;
@@ -34,10 +35,14 @@ const ColWithBottomMargin = styled(Col)`
 
 class View extends Component {
   state = {
+    isPageLoading: true,
     currentOrganisationID: undefined,
   }
   componentDidMount = async () => {
     const { success, errors } = await this.props.viewCurrentUserOrganisations();
+    this.setState({
+      isPageLoading: false,
+    });
     if (success === false) {
       errorNotify(errors.name);
     }
@@ -67,6 +72,7 @@ class View extends Component {
   )
   render() {
     const { organisations } = this.props;
+    const { isPageLoading } = this.state;
     return (
       <Fragment>
         <Breadcrumb style={{ margin: '16px 0' }}>
@@ -83,42 +89,42 @@ class View extends Component {
             textAlign: 'center',
           }}
         >
-          <h1>ORGANISATIONS</h1>
-          <FlexRow gutter={16}>
-            {
-              organisations && organisations.map(organisation => (
-                <ColWithBottomMargin span={8} key={organisation.id}>
-                  <Card
-                    actions={
-                      [
-                        <Icon type="setting" />,
-                        <Icon type="edit" />,
-                        <Dropdown id={organisation.id} overlay={this.CustomMenu} trigger={['click']}>
-                          <Icon type="ellipsis" onClick={() => { this.setCurrentOrganisationID(organisation.id); }} />
-                        </Dropdown>,
-                      ]
-                    }
-                  >
-                    <Meta
-                      avatar={<Avatar src={organisation.wakatime.photo} />}
-                      title={organisation.name}
-                      description={organisation.description}
-                    />
-                  </Card>
-                </ColWithBottomMargin>
-              ))
-            }
-          </FlexRow>
-          <hr />
-          <Row style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-            <Col span={24}>
-              <Button>
-                <Link to={organisationRoutes.OrganisationCreate}>
-                  Create a New Organisation
-                </Link>
-              </Button>
-            </Col>
-          </Row>
+          <LoadingCard loading={isPageLoading}>
+            <h1>ORGANISATIONS</h1>
+            <FlexRow gutter={16}>
+              {
+                organisations && organisations.map(organisation => (
+                  <ColWithBottomMargin span={8} key={organisation.id}>
+                    <Card
+                      actions={
+                        [
+                          <Dropdown id={organisation.id} overlay={this.CustomMenu} trigger={['click']}>
+                            <Icon type="ellipsis" onClick={() => { this.setCurrentOrganisationID(organisation.id); }} />
+                          </Dropdown>,
+                        ]
+                      }
+                    >
+                      <Meta
+                        avatar={<Avatar src={organisation.wakatime.photo} />}
+                        title={organisation.name}
+                        description={organisation.description}
+                      />
+                    </Card>
+                  </ColWithBottomMargin>
+                ))
+              }
+            </FlexRow>
+            <hr />
+            <Row style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+              <Col span={24}>
+                <Button>
+                  <Link to={organisationRoutes.OrganisationCreate}>
+                    Create a New Organisation
+                  </Link>
+                </Button>
+              </Col>
+            </Row>
+          </LoadingCard>
         </Content>
       </Fragment>
     );

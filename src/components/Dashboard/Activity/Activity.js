@@ -4,26 +4,38 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import getFormattedTimeFromSeconds from '../../../helpers/getFormattedTimeFromSeconds';
+import { loadingNotify } from '../../../helpers/messageNotify';
 
 
 const { Content } = Layout;
 
+
 class Activity extends Component {
-  state = {
-    value: moment(),
+  constructor(props) {
+    super(props);
+
+    loadingNotify('Loading Data...', 3000);
+    const { selectedDate } = this.state;
+    const date = selectedDate.format('YYYY-MM-DD');
+    this.props.viewCurrentUserDurations(date);
   }
 
-  onSelect = (value) => {
+  state = {
+    selectedDate: moment(),
+  }
+
+  onSelect = (selectedDate) => {
+    loadingNotify('Loading Data...', 3000);
+
     this.setState({
-      value,
+      selectedDate,
     });
 
-    const date = value.format('YYYY-MM-DD');
-    // make the request
+    const date = selectedDate.format('YYYY-MM-DD');
     this.props.viewCurrentUserDurations(date);
   }
   render() {
-    const { value } = this.state;
+    const { selectedDate } = this.state;
     return (
       <Fragment>
         <Breadcrumb style={{ margin: '16px 0' }}>
@@ -39,14 +51,11 @@ class Activity extends Component {
             textAlign: 'center',
           }}
         >
-          <div>
-            Activity
-          </div>
-          <h3>Selected Date: {value.format('DD MMM, YYYY')}</h3>
+          <h3>Selected Date: {selectedDate.format('DD MMM, YYYY')}</h3>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <div style={{ width: 300, border: '1px solid #d9d9d9', borderRadius: 4 }}>
               <Calendar
-                value={value}
+                value={selectedDate}
                 fullscreen={false}
                 onSelect={this.onSelect}
               />
@@ -66,7 +75,6 @@ class Activity extends Component {
               ))
             }
           </div>
-
         </Content>
       </Fragment>
     );

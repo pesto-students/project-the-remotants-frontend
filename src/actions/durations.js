@@ -17,7 +17,7 @@ export const viewCurrentUserDurations = date => (
       const config = {
         method: 'GET',
       };
-      const res = await axios(`${apiRoutes.Wakatime.CurrentUserDurations}?date=${date}`, config);
+      const res = await axios(`${apiRoutes.Wakatime.Durations}?date=${date}`, config);
       const { success, data, errors } = res.data;
 
       if (success === true) {

@@ -34,3 +34,9 @@ export const viewCurrentUserOrganisations = () => (
     }
   }
 );
+
+export const viewCurrentOrganisation = orgID => ({
+  type: organisationActions.VIEW_CURRENT_ORGANISATION,
+  organisationID: orgID,
+});
+

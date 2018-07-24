@@ -42,7 +42,7 @@ class Sidebar extends Component {
             <Menu.Item key={dashboardItemKeys.OrganisationCreate}>Create</Menu.Item>
             <Menu.Item key={dashboardItemKeys.OrganisationView}>View</Menu.Item>
           </SubMenu>
-          <SubMenu key="github" title={<span><Icon type="github" />Github</span>}>
+          <SubMenu key="github" title={<span><Icon type="github" />GitHub</span>}>
             <Menu.Item key="github/issues" onClick={this.onClickHandler}>Issues</Menu.Item>
             <Menu.Item key="github/pull-requests" onClick={this.onClickHandler}>Pull Requests</Menu.Item>
           </SubMenu>

@@ -3,19 +3,27 @@ import { Layout, Breadcrumb } from 'antd';
 import PropTypes from 'prop-types';
 
 import { errorNotify } from '../../../helpers/messageNotify';
+import LoadingCard from '../../LoadingCard';
 
 
 const { Content } = Layout;
 
 class Issues extends Component {
+  state = {
+    isPageLoading: true,
+  }
   componentDidMount = async () => {
     const { success, errors } = await this.props.viewCurrentUserIssues();
+    this.setState({
+      isPageLoading: false,
+    });
     if (success === false) {
       errorNotify(errors.name);
     }
   }
 
   render() {
+    const { isPageLoading } = this.state;
     return (
       <Fragment>
         <Breadcrumb style={{ margin: '16px 0' }}>
@@ -30,16 +38,17 @@ class Issues extends Component {
           minHeight: 480,
         }}
         >
-        Issues
-          <ul>
-            {
-              this.props.issues.map(issue => (
-                <li key={issue.id} id={issue.id}>
-                  <a href={issue.html_url} target="_blank" rel="noopener noreferrer">{issue.title}</a>
-                </li>
-              ))
-            }
-          </ul>
+          <LoadingCard loading={isPageLoading}>
+            <ul>
+              {
+                this.props.issues.map(issue => (
+                  <li key={issue.id} id={issue.id}>
+                    <a href={issue.html_url} target="_blank" rel="noopener noreferrer">{issue.title}</a>
+                  </li>
+                ))
+              }
+            </ul>
+          </LoadingCard>
         </Content>
       </Fragment>
     );
