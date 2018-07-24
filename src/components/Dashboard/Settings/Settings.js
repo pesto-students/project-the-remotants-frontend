@@ -9,10 +9,12 @@ import {
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { errorNotify } from '../../../helpers/messageNotify';
 import StyledComponents from '../../StyledComponents';
-
+import { LOCAL_STORAGE_GITHUB, LOCAL_STORAGE_WAKATIME } from '../../../config/constants';
+import checkLocalStorage from '../../../helpers/checkLocalStorageExists';
 
 const { Content } = Layout;
 
@@ -26,13 +28,20 @@ const RowWithMargin = styled(Row)`
   margin-top: 20px;
 `;
 
-const { LargeBadge } = StyledComponents;
+const { LargeBadge, OAuthButton } = StyledComponents;
 
 class Settings extends Component {
   componentDidMount = async () => {
-    const { success, errors } = await this.props.viewCurrentUserWakatimeDetails();
-    if (success === false) {
-      errorNotify(errors.name);
+    if (checkLocalStorage(LOCAL_STORAGE_GITHUB) !== true) {
+      errorNotify('Please link your GitHub account!');
+    } else {
+      const responseWakatimeDetails = await this.props.viewCurrentUserWakatimeDetails();
+      if (responseWakatimeDetails.success === false) {
+        errorNotify(responseWakatimeDetails.errors.name);
+      }
+    }
+    if (checkLocalStorage(LOCAL_STORAGE_WAKATIME) !== true) {
+      errorNotify('Please link your WakaTime account!');
     }
   }
   render() {
@@ -66,7 +75,13 @@ class Settings extends Component {
             minHeight: 480,
           }}
         >
-          Settings
+          <Row type="flex" justify="center" style={{ padding: '10px 0', textAlign: 'center' }}>
+            <Col span={12}>
+              <OAuthButton>
+                <Link to="/setup-2">Connect WakaTime/GitHub accounts</Link>
+              </OAuthButton>
+            </Col>
+          </Row>
           <Row style={{ textAlign: 'center', marginTop: '50px' }}>
             <Col span={12}>
               <h2>WakaTime User Details</h2>

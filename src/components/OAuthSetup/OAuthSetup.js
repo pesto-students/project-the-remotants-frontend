@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button, Row, Col, Card, Icon } from 'antd';
 import axios from 'axios';
 import store from 'store';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import authConfig from '../../config/authConfig';
@@ -10,32 +9,10 @@ import { LOCAL_STORAGE_GITHUB, LOCAL_STORAGE_WAKATIME } from '../../config/const
 import { successNotify, errorNotify, warningNotify } from '../../helpers/messageNotify';
 import checkLocalStorage from '../../helpers/checkLocalStorageExists';
 import routes from '../../config/routes';
+import StyledComponents from '../StyledComponents';
 
-const Anchor = styled.a`
-  display: flex;
-  align-items: center;
-  &:hover, &:active, &:focus {
-    text-decoration: none;
-  }
-`;
 
-const StyledButton = styled(Button)`
-  background: #fff;
-  color: #000;
-  padding: 5px 15px;
-  height: auto;
-  font-size: 1.1em;
-
-  &:hover, &:active, &:focus {
-    a {
-      color: black !important;
-    }
-    color: black !important;
-    background: #eee;
-    text-shadow: none;
-    border: 1px solid transparent;
-  }
-`;
+const { OAuthAnchor, OAuthButton } = StyledComponents;
 
 
 class OAuthSetup extends Component {
@@ -117,24 +94,24 @@ class OAuthSetup extends Component {
 
             <Row style={{ padding: '10px 0' }}>
               <Col span={12} style={{ borderRight: '1px solid #ccc' }}>
-                <StyledButton loading={isLoadingGithub}>
-                  <Anchor
+                <OAuthButton loading={isLoadingGithub}>
+                  <OAuthAnchor
                     onClick={this.githubClickHandler}
                     href={authConfig.GITHUB_OAUTH_URI}
                   >
                     <Icon style={{ height: '14px' }} type="github" />&nbsp;Connect with GitHub
-                  </Anchor>
-                </StyledButton>
+                  </OAuthAnchor>
+                </OAuthButton>
               </Col>
               <Col span={12} style={{ borderLeft: '1px solid #ccc' }}>
-                <StyledButton loading={isLoadingWakatime}>
-                  <Anchor
+                <OAuthButton loading={isLoadingWakatime}>
+                  <OAuthAnchor
                     onClick={this.wakatimeClickHandler}
                     href={authConfig.WAKATIME_OAUTH_URI}
                   >
                     <img style={{ height: '14px' }} alt="wakatime" src="/public/images/wakatime.svg" />&nbsp;Connect with WakaTime
-                  </Anchor>
-                </StyledButton>
+                  </OAuthAnchor>
+                </OAuthButton>
               </Col>
             </Row>
             <Row style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '30px' }}>
