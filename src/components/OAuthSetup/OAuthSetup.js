@@ -6,7 +6,12 @@ import PropTypes from 'prop-types';
 
 import authConfig from '../../config/authConfig';
 import { LOCAL_STORAGE_GITHUB, LOCAL_STORAGE_WAKATIME } from '../../config/constants';
-import { successNotify, errorNotify, warningNotify } from '../../helpers/messageNotify';
+import {
+  successNotify,
+  errorNotify,
+  warningNotify,
+  loadingNotify,
+} from '../../helpers/messageNotify';
 import checkLocalStorage from '../../helpers/checkLocalStorageExists';
 import routes from '../../config/routes';
 import StyledComponents from '../StyledComponents';
@@ -27,6 +32,7 @@ class OAuthSetup extends Component {
 
     if (code !== null) {
       if (auth === 'github') {
+        loadingNotify('Authenticating GitHub...', 3000);
         const response = await axios.get(`${authConfig.GITHUB_BACKEND_AUTH_URL}/${code}`);
         const { success, errors, token } = response.data;
 
@@ -41,6 +47,7 @@ class OAuthSetup extends Component {
           errorNotify(errors.name);
         }
       } else if (auth === 'wakatime') {
+        loadingNotify('Authenticating WakaTime...', 3000);
         const response = await axios.get(`${authConfig.WAKATIME_BACKEND_AUTH_URL}/${code}`);
         const { success, errors, token } = response.data;
 
@@ -61,22 +68,22 @@ class OAuthSetup extends Component {
     this.props.history.push(routes.Dashboard);
   }
   githubClickHandler = (e) => {
-    // check if github-auth exists in localStorage
     if (checkLocalStorage(LOCAL_STORAGE_GITHUB) === true) {
       e.preventDefault();
       warningNotify('Your GitHub account is already linked!');
     } else {
+      loadingNotify('Connecting to GitHub...', 1000);
       this.setState({
         isLoadingGithub: true,
       });
     }
   }
   wakatimeClickHandler = (e) => {
-    // check if wakatime-auth exists in localStorage
     if (checkLocalStorage(LOCAL_STORAGE_WAKATIME) === true) {
       e.preventDefault();
       warningNotify('Your WakaTime account is already linked!');
     } else {
+      loadingNotify('Connecting to WakaTime...', 1000);
       this.setState({
         isLoadingWakatime: true,
       });

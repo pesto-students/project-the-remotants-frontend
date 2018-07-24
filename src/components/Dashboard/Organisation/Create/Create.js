@@ -16,6 +16,7 @@ import { successNotify, errorNotify } from '../../../../helpers/messageNotify';
 import apiRoutes from '../../../../config/apiRoutes';
 import { organisationRoutes } from '../../../../config/routes';
 import StyledComponents from '../../../StyledComponents';
+import LoadingCard from '../../../LoadingCard';
 
 
 const { Content } = Layout;
@@ -25,7 +26,13 @@ const { LargeFormItem, LargeButton } = StyledComponents;
 
 class Create extends Component {
   state = {
+    isPageLoading: true,
     isLoading: false,
+  }
+  componentDidMount = () => {
+    this.setState({
+      isPageLoading: false,
+    });
   }
   onSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +51,7 @@ class Create extends Component {
           const { success, errors } = response.data;
 
           if (success === true) {
-            successNotify(`"${name}" has been created sucessfully!`);
+            successNotify(`"${name}" has been created successfully!`);
             this.props.history.push(organisationRoutes.OrganisationView);
           } else {
             this.setState({
@@ -68,7 +75,7 @@ class Create extends Component {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { isLoading } = this.state;
+    const { isPageLoading, isLoading } = this.state;
     return (
       <Fragment>
         <Breadcrumb style={{ margin: '16px 0' }}>
@@ -85,31 +92,33 @@ class Create extends Component {
             textAlign: 'center',
           }}
         >
-          <Row type="flex" justify="center" style={{ textAlign: 'center' }}>
-            <Col span={12}>
-              <h1>Create a New Organisation</h1>
-              <Card>
-                <h3 style={{ marginBottom: '50px' }}>Please fill your details</h3>
-                <Form onSubmit={this.onSubmit}>
-                  <LargeFormItem>
-                    {getFieldDecorator('name', {
-                      rules: [{ required: true, message: 'Please input the organisation name!' }],
-                    })(<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="text" placeholder="Organisation Name" />)}
-                  </LargeFormItem>
-                  <LargeFormItem>
-                    {getFieldDecorator('description', {
-                      rules: [{ required: false, message: 'Please write a brief description!' }],
-                    })(<TextArea placeholder="Briefly describe your organisation" autosize={{ minRows: 2 }} />)}
-                  </LargeFormItem>
-                  <LargeFormItem>
-                    <LargeButton loading={isLoading} type="primary" htmlType="submit">
-                      SUBMIT
-                    </LargeButton>
-                  </LargeFormItem>
-                </Form>
-              </Card>
-            </Col>
-          </Row>
+          <LoadingCard loading={isPageLoading}>
+            <Row type="flex" justify="center" style={{ textAlign: 'center' }}>
+              <Col span={12}>
+                <h1>Create a New Organisation</h1>
+                <Card>
+                  <h3 style={{ marginBottom: '50px' }}>Please fill your details</h3>
+                  <Form onSubmit={this.onSubmit}>
+                    <LargeFormItem>
+                      {getFieldDecorator('name', {
+                        rules: [{ required: true, message: 'Please input the organisation name!' }],
+                      })(<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="text" placeholder="Organisation Name" />)}
+                    </LargeFormItem>
+                    <LargeFormItem>
+                      {getFieldDecorator('description', {
+                        rules: [{ required: false, message: 'Please write a brief description!' }],
+                      })(<TextArea placeholder="Briefly describe your organisation" autosize={{ minRows: 2 }} />)}
+                    </LargeFormItem>
+                    <LargeFormItem>
+                      <LargeButton loading={isLoading} type="primary" htmlType="submit">
+                        SUBMIT
+                      </LargeButton>
+                    </LargeFormItem>
+                  </Form>
+                </Card>
+              </Col>
+            </Row>
+          </LoadingCard>
         </Content>
       </Fragment>
     );

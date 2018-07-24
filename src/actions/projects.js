@@ -17,9 +17,9 @@ export const viewCurrentUserProjects = () => (
       const config = {
         method: 'GET',
       };
-      const res = await axios(apiRoutes.Wakatime.CurrentUserProjects, config);
+      const res = await axios(apiRoutes.Wakatime.Projects, config);
       const { success, data, errors } = res.data;
-      const projects = data.data;
+      const projects = data;
       if (success === true) {
         dispatch(setCurrentUserProjects(projects));
         return createSuccessMessage();
@@ -48,7 +48,7 @@ export const viewProjectCommits = projectID => (
       const config = {
         method: 'GET',
       };
-      const res = await axios(`${apiRoutes.Wakatime.CurrentUserProjects}/${projectID}/commits`, config);
+      const res = await axios(`${apiRoutes.Wakatime.Projects}/${projectID}/commits`, config);
       const { success, data, errors } = res.data;
       if (success === true) {
         dispatch(setProjectCommits(projectID, data.commits));

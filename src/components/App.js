@@ -24,6 +24,7 @@ import Activity from './Dashboard/Activity';
 import OrganisationView from './Dashboard/Organisation/View';
 import OrganisationCreate from './Dashboard/Organisation/Create';
 import OrganisationInvite from './Dashboard/Organisation/Invite';
+import OrganisationTrackUser from './Dashboard/Organisation/Track';
 import OrganisationStats from './Dashboard/Organisation/Stats';
 import Issues from './Dashboard/Issues';
 import Repos from './Dashboard/Repos';
@@ -63,8 +64,13 @@ const App = () => (
                 component={OrganisationInvite}
               />
               <DashboardRoute
+                exact
                 path={organisationRoutes.OrganisationStats}
                 component={OrganisationStats}
+              />
+              <DashboardRoute
+                path={organisationRoutes.OrganisationTrackUser}
+                component={OrganisationTrackUser}
               />
 
               <PublicRoute path={routes.InviteAuth} component={InviteAuth} />
