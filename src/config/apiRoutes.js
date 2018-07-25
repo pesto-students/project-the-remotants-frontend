@@ -22,6 +22,7 @@ const apiRoutes = {
   },
   Github: {
     CurrentUserIssues: `${GithubAPI}/user/issues`,
+    CurrentUserRepos: `${GithubAPI}/user/repos`,
   },
 };
 

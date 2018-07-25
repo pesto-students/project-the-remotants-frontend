@@ -36,6 +36,7 @@ const dashboardRoutes = {
   ProjectView: `${Dashboard}/${dashboardItemKeys.ProjectView}`,
   ActivityView: `${Dashboard}/${dashboardItemKeys.ActivityView}`,
   Issues: `${Dashboard}/github/issues`,
+  Repos: `${Dashboard}/github/pull-requests`,
 };
 
 const organisationRoutes = {

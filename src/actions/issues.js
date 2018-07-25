@@ -18,7 +18,7 @@ export const viewCurrentUserIssues = () => (
       };
       const res = await axios(apiRoutes.Github.CurrentUserIssues, config);
       const { success, data, errors } = res.data;
-      console.log(data);
+
       const issues = data;
       if (success === true) {
         dispatch(setCurrentUserIssues(issues));
