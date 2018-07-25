@@ -44,7 +44,7 @@ class Sidebar extends Component {
           </SubMenu>
           <SubMenu key="github" title={<span><Icon type="github" />Github</span>}>
             <Menu.Item key="github/issues" onClick={this.onClickHandler}>Issues</Menu.Item>
-            <Menu.Item key="github/pullrequests" onClick={this.onClickHandler}>Pull Requests</Menu.Item>
+            <Menu.Item key="github/pull-requests" onClick={this.onClickHandler}>Pull Requests</Menu.Item>
           </SubMenu>
         </Menu>
       </Sider>

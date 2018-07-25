@@ -33,9 +33,9 @@ class Issues extends Component {
         Issues
           <ul>
             {
-              this.props.issues.map(issues => (
-                <li key={issues.id} id={issues.id}>
-                  {issues.title}
+              this.props.issues.map(issue => (
+                <li key={issue.id} id={issue.id}>
+                  <a href={issue.html_url} target="_blank" rel="noopener noreferrer">{issue.title}</a>
                 </li>
               ))
             }

@@ -39,3 +39,12 @@ const VIEW_CURRENT_USER_ISSUES = 'VIEW_CURRENT_USER_ISSUES';
 export const issuesActions = {
   VIEW_CURRENT_USER_ISSUES,
 };
+
+const VIEW_CURRENT_USER_REPOS = 'VIEW_CURRENT_USER_REPOS';
+const VIEW_REPO_PR = 'VIEW_REPO_PR';
+
+export const reposActions = {
+  VIEW_CURRENT_USER_REPOS,
+  VIEW_REPO_PR,
+};
+
