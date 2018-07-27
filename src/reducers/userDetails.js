@@ -15,6 +15,14 @@ const userDetailsReducer = (state = initialState, action) => {
           github: state.github,
         }
       );
+
+    case userDetailsActions.VIEW_CURRENT_USER_GITHUB_DETAILS:
+      return (
+        {
+          wakatime: state.wakatime,
+          github: action.user,
+        }
+      );
     default:
       return state;
   }

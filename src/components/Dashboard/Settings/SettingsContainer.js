@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 
-import { viewCurrentUserWakatimeDetails } from '../../../actions/userDetails';
 import { ifWakatimeTokenExists, ifGithubTokenExists } from '../../../actions/authToken';
-
+import { viewCurrentUserWakatimeDetails, viewCurrentUserGithubDetails } from '../../../actions/userDetails';
 import Settings from './Settings';
 
 
@@ -14,6 +13,7 @@ const mapDispatchToProps = {
   viewCurrentUserWakatimeDetails,
   ifWakatimeTokenExists,
   ifGithubTokenExists,
+  viewCurrentUserGithubDetails,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
