@@ -34,3 +34,32 @@ export const viewCurrentUserWakatimeDetails = () => (
     }
   }
 );
+
+export const setCurrentUserGithubDetails = user => ({
+  type: userDetailsActions.VIEW_CURRENT_USER_GITHUB_DETAILS,
+  user,
+});
+
+export const viewCurrentUserGithubDetails = () => (
+  async (dispatch) => {
+    try {
+      const config = {
+        method: 'GET',
+      };
+      const res = await axios(apiRoutes.Github.CurrentUserGithubDetails, config);
+      console.log(res);
+      const { success, data, errors } = res.data;
+      if (success === true) {
+        dispatch(setCurrentUserGithubDetails(data));
+        return createSuccessMessage();
+      }
+
+      return {
+        success: false,
+        errors,
+      };
+    } catch (e) {
+      return createErrorMessage(`Caught errors while fetching user details from Github ${e}`);
+    }
+  }
+);

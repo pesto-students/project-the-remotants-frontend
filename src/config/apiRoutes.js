@@ -27,6 +27,7 @@ const apiRoutes = {
     CurrentUserIssues: `${GithubAPI}/user/issues`,
     CurrentUserRepos: `${GithubAPI}/user/repos`,
     IfTokenExists: `${GithubAPI}/users/checkToken`,
+    CurrentUserGithubDetails: `${GithubAPI}/user`,
   },
 };
 

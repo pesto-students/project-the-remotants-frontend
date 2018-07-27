@@ -5,6 +5,7 @@ import {
   Row,
   Col,
   Tooltip,
+  Icon,
 } from 'antd';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -23,6 +24,8 @@ const StyledAvatar = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const RowWithMargin = styled(Row)`
@@ -57,8 +60,14 @@ class Settings extends Component {
       errorNotify('Please link your GitHub account!');
       this.props.history.push(routes.OAuthSetup);
       return;
-    } else if (githubResponse.exists !== true) {
-      errorNotify(wakatimeResponse.errors.name);
+    } else if (githubResponse.exists === true) {
+      const responseGithubDetails = await this.props.viewCurrentUserGithubDetails();
+      if (responseGithubDetails.success === false) {
+        await errorNotify(responseGithubDetails.errors.name);
+        return;
+      }
+    } else {
+      errorNotify(githubResponse.errors.name);
       return;
     }
 
@@ -67,8 +76,7 @@ class Settings extends Component {
     });
   }
   render() {
-    const { wakatime } = this.props.userDetails;
-
+    const { wakatime, github } = this.props.userDetails;
     const lastHeartbeat = wakatime.last_heartbeat;
 
     const now = moment();
@@ -106,43 +114,40 @@ class Settings extends Component {
                   <OAuthButton>
                     <Link to="/setup-2">Connect WakaTime/GitHub accounts</Link>
                   </OAuthButton>
+                  <StyledAvatar
+                    src={(wakatime.photo) ? wakatime.photo : github.avatar_url}
+                    alt={wakatime.display_name}
+                  />
+                  <h1>{ wakatime.display_name ? wakatime.display_name : github.name}</h1>
                 </Col>
               </Row>
-              <Row style={{ textAlign: 'center', marginTop: '50px' }}>
+              <Row style={{ textAlign: 'center', marginTop: '20px' }}>
                 <Col span={12}>
                   <h2>WakaTime User Details</h2>
                   <Row style={{ display: 'flex', justifyContent: 'center' }}>
                     <Col span={18}>
-                      <Row>
-                        <div style={{ position: 'relative' }}>
-                          <StyledAvatar src={wakatime.photo} alt={wakatime.display_name} />
-                        </div>
-                      </Row>
                       <RowWithMargin>
-                        <h4>Display Name:</h4>
-                        { wakatime.display_name }
-                      </RowWithMargin>
-                      <RowWithMargin>
+                        <Icon type="mail" />
                         <h4>Email:</h4>
-                        { wakatime.email }
+                        { wakatime.email ? wakatime.email : github.email }
                       </RowWithMargin>
                       <RowWithMargin>
+                        <Icon type="clock-circle" />
                         <h4>Last Active:</h4>
                         { moment(wakatime.last_heartbeat).format('DD MMM, YYYY HH:mm A') }
                       </RowWithMargin>
                       <RowWithMargin>
+                        <Icon type="code" />
                         <h4>Last Active On:</h4>
                         { wakatime.last_plugin_name }
                       </RowWithMargin>
                       <RowWithMargin>
+                        <Icon type="file" />
                         <h4>Last Project:</h4>
                         { wakatime.last_project }
                       </RowWithMargin>
                       <RowWithMargin>
-                        <h4>Location:</h4>
-                        { wakatime.location }
-                      </RowWithMargin>
-                      <RowWithMargin>
+                        <Icon type="user" />
                         <h4>Status:</h4>
                         {
                           activeStatus ?
@@ -163,6 +168,30 @@ class Settings extends Component {
                 </Col>
                 <Col span={12}>
                   <h2>GitHub User Details</h2>
+                  <Row style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Col span={18}>
+                      <RowWithMargin>
+                        <h4>Link to Profile:</h4>
+                        <a href={github.html_url} target="_blank" rel="noopener noreferrer"> { github.html_url } </a>
+                      </RowWithMargin>
+                      <RowWithMargin>
+                        <h4>Bio:</h4>
+                        { github.bio }
+                      </RowWithMargin>
+                      <RowWithMargin>
+                        <h4>Location:</h4>
+                        { github.location ? github.location : wakatime.location }
+                      </RowWithMargin>
+                      <RowWithMargin>
+                        <h4>Repositories: </h4>
+                        { github.public_repos }
+                      </RowWithMargin>
+                      <RowWithMargin>
+                        <h4>Followers:</h4>
+                        { github.followers }
+                      </RowWithMargin>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             </Fragment>
@@ -175,7 +204,8 @@ class Settings extends Component {
 
 Settings.propTypes = {
   userDetails: PropTypes.shape({
-    wakatime: PropTypes.shape({}).isRequired,
+    wakatime: PropTypes.shape({}),
+    github: PropTypes.shape({}),
   }).isRequired,
   viewCurrentUserWakatimeDetails: PropTypes.func.isRequired,
   ifWakatimeTokenExists: PropTypes.func.isRequired,
@@ -183,6 +213,7 @@ Settings.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  viewCurrentUserGithubDetails: PropTypes.func.isRequired,
 };
 
 export default Settings;
