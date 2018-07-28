@@ -32,10 +32,7 @@ Label.propTypes = {
 };
 
 const pieValue = (d) => {
-  if (d.total_seconds) {
-    return d.total_seconds;
-  }
-  return 0;
+  return d.total_seconds;
 };
 
 const fillOpacity = (d) => {
@@ -46,7 +43,6 @@ const CustomPie = ({
   width,
   height,
   data,
-  thresholdVal,
   margin = {
     top: 30,
     left: 20,
@@ -76,10 +72,7 @@ const CustomPie = ({
           fillOpacity={fillOpacity}
           centroid={(centroid, arc) => {
             const [x, y] = centroid;
-            if (arc.data.total_seconds > thresholdVal) {
-              return (<Label x={x} y={y}>{arc.data.name}</Label>);
-            }
-              return null;
+            return (<Label x={x} y={y}>{arc.data.name}</Label>);
           }}
         />
       </Group>
@@ -91,7 +84,6 @@ CustomPie.propTypes = {
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  thresholdVal: PropTypes.number.isRequired,
   margin: PropTypes.shape({
     top: PropTypes.number,
     left: PropTypes.number,
