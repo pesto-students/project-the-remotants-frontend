@@ -28,7 +28,7 @@ export const viewCurrentUserRepos = () => (
         errors,
       };
     } catch (e) {
-      return createErrorMessage(`Error fetching repos from Github ${e}`);
+      return createErrorMessage('Error fetching repos from Github');
     }
   }
 );

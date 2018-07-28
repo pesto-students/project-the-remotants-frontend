@@ -1,13 +1,21 @@
 import React, { Component, Fragment } from 'react';
-import { Layout, Breadcrumb } from 'antd';
+import {
+  Layout,
+  Breadcrumb,
+  Tree,
+  Row,
+  Col,
+} from 'antd';
 import PropTypes from 'prop-types';
-
 
 import { errorNotify, loadingNotify } from '../../../helpers/messageNotify';
 import LoadingCard from '../../LoadingCard';
+import changeDateFormat from '../../../helpers/changeDateFormat';
+import { DATE_FORMAT_CONSTANTS } from '../../../config/constants';
 
 
 const { Content } = Layout;
+const { TreeNode } = Tree;
 
 class Project extends Component {
   state = {
@@ -23,16 +31,45 @@ class Project extends Component {
     }
   }
 
-  viewCommitsHandler = async (projectId) => {
+  onLoadCommits = async (treeNode) => {
+    if (treeNode.props.children) {
+      return;
+    }
+
     loadingNotify('Loading Commits...', 3000);
-    const { success, errors } = await this.props.viewProjectCommits(projectId);
+    const selectedProjectID = treeNode.props.dataRef.id;
+    const { success, errors } = await this.props.viewProjectCommits(selectedProjectID);
     if (success === false) {
       errorNotify(errors.name);
     }
   }
 
+  renderTreeNodes = (data = []) => {
+    return data.map((item) => {
+      if (item.commits) {
+        return (
+          <TreeNode title={item.name} key={item.id} dataRef={{ ...item, commits: [] }}>
+            {
+              item.commits.map((commit) => {
+                return (
+                  <TreeNode
+                    title={`${commit.message} by ${commit.committer_name} at ${changeDateFormat(commit.committer_date, DATE_FORMAT_CONSTANTS.HUMAN_READABLE_DATE_TIME_FORMAT)} `}
+                    key={commit.hash}
+                    isLeaf
+                  />
+                );
+              })
+            }
+          </TreeNode>
+        );
+      }
+      return <TreeNode title={item.name} key={item.id} dataRef={item} />;
+    });
+  }
+
   render() {
     const { isPageLoading } = this.state;
+    const { projects } = this.props;
     return (
       <Fragment>
         <Breadcrumb style={{ margin: '16px 0' }}>
@@ -48,38 +85,26 @@ class Project extends Component {
           }}
         >
           <LoadingCard loading={isPageLoading}>
-            <ul>
-              {
-                this.props.projects.map(project => (
-                  <li key={project.id} id={project.id}>
-                    {project.name}
-                    <button
-                      onClick={() => this.viewCommitsHandler(project.id)}
-                    >
-                        View Commits
-                    </button>
+            { projects &&
+              (
+                <Fragment>
+                  <Row style={{ marginBottom: '20px' }}>
+                    <Col span={24}>
+                      <h2 style={{ marginBottom: '0px' }}>Projects</h2>
+                    </Col>
+                    <Col span={24}>
+                      <small style={{ color: '#ff5454' }}>(Click on the projects to view the commits)</small>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Tree showLine loadData={this.onLoadCommits}>
+                      {this.renderTreeNodes(projects)}
+                    </Tree>
+                  </Row>
+                </Fragment>
+              )
+            }
 
-                    {
-                      project.commits !== undefined &&
-                      <ul>
-                        {
-                          project.commits.map(commit => (
-                            <li key={commit.hash}>
-                              <a href={commit.html_url}>
-                                Commit Message: {commit.message}
-                                <br />
-                                {commit.committer_name} ({commit.committer_username})
-                                <img src={commit.committer_avatar_url} alt={commit.committer_name} style={{ width: '50px' }} />
-                              </a>
-                            </li>
-                          ))
-                        }
-                      </ul>
-                    }
-                  </li>
-                ))
-              }
-            </ul>
           </LoadingCard>
         </Content>
       </Fragment>
