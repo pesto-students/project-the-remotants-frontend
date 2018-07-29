@@ -94,7 +94,7 @@ class Create extends Component {
         >
           <LoadingCard loading={isPageLoading}>
             <Row type="flex" justify="center" style={{ textAlign: 'center' }}>
-              <Col span={12}>
+              <Col span={18}>
                 <h1>Create a New Organisation</h1>
                 <Card>
                   <h3 style={{ marginBottom: '50px' }}>Please fill your details</h3>
@@ -111,7 +111,7 @@ class Create extends Component {
                     </LargeFormItem>
                     <LargeFormItem>
                       <LargeButton loading={isLoading} type="primary" htmlType="submit">
-                        SUBMIT
+                        CREATE
                       </LargeButton>
                     </LargeFormItem>
                   </Form>

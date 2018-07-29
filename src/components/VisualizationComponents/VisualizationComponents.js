@@ -168,7 +168,6 @@ const CustomBar = ({
                 top={yMax}
                 stroke="#496D9F"
                 tickStroke="#496D9F"
-                hideAxisLine
                 tickLabelProps={() => ({
                   fill: '#383838',
                   fontSize: 12,

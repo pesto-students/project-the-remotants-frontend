@@ -63,7 +63,7 @@ class BasicSetup extends Component {
     const { isLoading } = this.state;
     return (
       <Row type="flex" justify="center" style={{ textAlign: 'center' }}>
-        <Col span={12}>
+        <Col span={18}>
           <h1>On Boarding: Step 1</h1>
           <Card>
             <h3 style={{ marginBottom: '50px' }}>Please fill your details</h3>
