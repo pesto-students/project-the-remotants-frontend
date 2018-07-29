@@ -137,6 +137,7 @@ const CustomBar = ({
 
   return (
     <svg width={width} height={height}>
+      <RadialGradient from="#55bdd5" to="#4f3681" id="gradients" r="80%" />
       <rect
         x={0}
         y={0}

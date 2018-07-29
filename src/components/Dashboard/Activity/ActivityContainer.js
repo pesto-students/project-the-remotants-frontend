@@ -1,15 +1,16 @@
 import { connect } from 'react-redux';
 
-import { viewCurrentUserDurations } from '../../../actions/durations';
+import { viewCurrentUserDurations, viewCurrentUserDateRangeDurations } from '../../../actions/durations';
 import Activity from './Activity';
 
 
 const mapStateToProps = state => ({
-  durations: state.durations,
+  durationsStore: state.durations,
 });
 
 const mapDispatchToProps = {
   viewCurrentUserDurations,
+  viewCurrentUserDateRangeDurations,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Activity);
