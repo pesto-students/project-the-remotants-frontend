@@ -114,6 +114,10 @@ class Settings extends Component {
                   <OAuthButton>
                     <Link to="/setup-2">Connect WakaTime/GitHub accounts</Link>
                   </OAuthButton>
+                </Col>
+              </Row>
+              <Row type="flex" justify="center">
+                <Col style={{ textAlign: 'center' }}>
                   <StyledAvatar
                     src={(wakatime.photo) ? wakatime.photo : github.avatar_url}
                     alt={wakatime.display_name}

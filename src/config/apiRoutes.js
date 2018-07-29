@@ -19,6 +19,7 @@ const apiRoutes = {
   Wakatime: {
     Projects: `${WakatimeAPI}/users/current/projects`,
     Durations: `${WakatimeAPI}/users/current/durations`,
+    DateRangeDurations: `${WakatimeAPI}/users/current/durations/range`,
     Details: `${WakatimeAPI}/users/current`,
     OrganisationMemberStats: `${WakatimeAPI}/users/all`,
     IfTokenExists: `${WakatimeAPI}/users/checkToken`,

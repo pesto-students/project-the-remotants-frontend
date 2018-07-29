@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Layout, Menu, Icon } from 'antd';
 
 import routes, { dashboardSubMenuKeys, dashboardItemKeys } from '../../../config/routes';
+import { successNotify } from '../../../helpers/messageNotify';
 
 
 const { SubMenu } = Menu;
@@ -10,7 +11,12 @@ const { Sider } = Layout;
 
 class Sidebar extends Component {
   onMenuClickHandler = ({ key }) => {
-    this.props.history.push(`${routes.Dashboard}/${key}`);
+    if (key === dashboardItemKeys.Logout) {
+      this.props.logoutUser();
+      successNotify('Logged out successfully!');
+    } else {
+      this.props.history.push(`${routes.Dashboard}/${key}`);
+    }
   }
   render() {
     const [, , subMenu, item] = this.props.match.path.split('/');
@@ -59,6 +65,7 @@ Sidebar.propTypes = {
   match: PropTypes.shape({
     path: PropTypes.string.isRequired,
   }).isRequired,
+  logoutUser: PropTypes.func.isRequired,
 };
 
 export default Sidebar;
