@@ -35,8 +35,14 @@ const { Content, Footer } = Layout;
 const App = () => (
   <Router>
     <Layout style={{ minHeight: '100vh' }}>
-      <Content style={{ padding: '0 50px' }}>
-        <Layout style={{ padding: '24px 0', margin: '16px 0 0 0', background: '#fff' }}>
+      <Content style={{ padding: '0 150px' }}>
+        <Layout style={{
+            padding: '24px 0',
+            margin: '16px 0 0 0',
+            background: '#fff',
+            minHeight: 'calc(100vh - 82px)',
+          }}
+        >
           <Content style={{ padding: '0 24px' }}>
             <FlashMessage />
             <Switch>
