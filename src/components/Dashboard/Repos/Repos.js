@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Layout, Breadcrumb } from 'antd';
+import { Layout, Breadcrumb, Tree, Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 
 import { errorNotify, loadingNotify } from '../../../helpers/messageNotify';
@@ -7,6 +7,7 @@ import LoadingCard from '../../LoadingCard';
 
 
 const { Content } = Layout;
+const { TreeNode } = Tree;
 
 class Repos extends Component {
   state = {
@@ -22,16 +23,50 @@ class Repos extends Component {
     }
   }
 
-  viewPullRequestsHandler = async (owner, repoName) => {
+  onLoadPullRequests = async (treeNode) => {
+    if (treeNode.props.children) {
+      return;
+    }
     loadingNotify('Loading Pull Requests...', 3000);
-    const { success, errors } = await this.props.viewRepoPullRequests(owner, repoName);
+    const { owner: { login }, name } = treeNode.props.dataRef;
+    const { success, errors } = await this.props.viewRepoPullRequests(login, name);
     if (success === false) {
       errorNotify(errors.name);
     }
   }
 
+  onSelectPullRequests = ([location]) => {
+    if (location && location.includes('https')) {
+      window.open(location, '_blank');
+    }
+  }
+
+  renderTreeNodes = (data = []) => {
+    return data.map((item) => {
+      if (item.pullRequests) {
+        return (
+          <TreeNode title={item.name} key={item.html_url} dataRef={{ ...item, pullRequests: [] }}>
+            {
+              item.pullRequests.map((pull) => {
+                return (
+                  <TreeNode
+                    title={`${pull.title}`}
+                    key={pull.html_url}
+                    isLeaf
+                  />
+                );
+              })
+            }
+          </TreeNode>
+        );
+      }
+      return <TreeNode title={item.name} key={item.html_url} dataRef={item} />;
+    });
+  }
+
   render() {
     const { isPageLoading } = this.state;
+    const { repos } = this.props;
     return (
       <Fragment>
         <Breadcrumb style={{ margin: '16px 0' }}>
@@ -47,38 +82,29 @@ class Repos extends Component {
         }}
         >
           <LoadingCard loading={isPageLoading}>
-            <ul>
-              {
-                this.props.repos.map(repo => (
-                  <li key={repo.id} id={repo.id}>
-                    <a href={repo.html_url} target="_blank" rel="noopener noreferrer">{repo.name}</a>
-                    <button
-                      style={{ marginLeft: 20 }}
-                      onClick={() => this.viewPullRequestsHandler(
-                        repo.owner.login,
-                        repo.name,
-                      )}
+            { repos &&
+              (
+                <Fragment>
+                  <Row style={{ marginBottom: '20px' }}>
+                    <Col span={24}>
+                      <h2 style={{ marginBottom: '0px' }}>Repos</h2>
+                    </Col>
+                    <Col span={24}>
+                      <small style={{ color: '#ff5454' }}>(Click on the repos to view the pull requests)</small>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Tree
+                      showLine
+                      loadData={this.onLoadPullRequests}
+                      onSelect={this.onSelectPullRequests}
                     >
-                      View Pull Requests
-                    </button>
-                    {
-                    repo.pullRequests !== undefined &&
-                    <ul>
-                      {
-                        repo.pullRequests.map(pullRequest => (
-                          <li key={pullRequest.id}>
-                            <a href={pullRequest.html_url} target="_blank" rel="noopener noreferrer">
-                              Pull Request Title: {pullRequest.title}
-                            </a>
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  }
-                  </li>
-                ))
+                      {this.renderTreeNodes(repos)}
+                    </Tree>
+                  </Row>
+                </Fragment>
+              )
               }
-            </ul>
           </LoadingCard>
         </Content>
       </Fragment>
