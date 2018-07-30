@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const lessToJs = require('less-vars-to-js');
 
@@ -45,6 +46,9 @@ const config = {
     new Dotenv(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
+    }),
+    new UglifyJSPlugin({
+      sourceMap: true,
     }),
   ],
   output: {
