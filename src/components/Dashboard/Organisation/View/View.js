@@ -90,34 +90,43 @@ class View extends Component {
           }}
         >
           <LoadingCard loading={isPageLoading}>
-            <h1>ORGANISATIONS</h1>
-            <FlexRow gutter={16}>
+            <h1>Organisations</h1>
+            <FlexRow gutter={16} style={{ marginTop: '40px' }}>
               {
-                organisations && organisations.map(organisation => (
-                  <ColWithBottomMargin span={8} key={organisation.id}>
-                    <Card
-                      actions={
-                        [
-                          <Dropdown id={organisation.id} overlay={this.CustomMenu} trigger={['click']}>
-                            <Icon type="ellipsis" onClick={() => { this.setCurrentOrganisationID(organisation.id); }} />
-                          </Dropdown>,
-                        ]
-                      }
-                    >
-                      <Meta
-                        avatar={<Avatar src={organisation.wakatime.photo} />}
-                        title={organisation.name}
-                        description={organisation.description}
-                      />
-                    </Card>
-                  </ColWithBottomMargin>
-                ))
+                organisations ?
+                  organisations.map(organisation => (
+                    <ColWithBottomMargin span={8} key={organisation.id}>
+                      <Card
+                        actions={
+                          [
+                            <Dropdown id={organisation.id} overlay={this.CustomMenu} trigger={['click']}>
+                              <Icon type="ellipsis" onClick={() => { this.setCurrentOrganisationID(organisation.id); }} />
+                            </Dropdown>,
+                          ]
+                        }
+                      >
+                        <Meta
+                          avatar={<Avatar src={organisation.wakatime.photo} />}
+                          title={organisation.name}
+                          description={organisation.description}
+                        />
+                      </Card>
+                    </ColWithBottomMargin>
+                  )) :
+                  <div style={{
+                      margin: '20px 0',
+                      color: '#FF5D67',
+                      fontSize: '20px',
+                    }}
+                  >
+                    No organisations to list!
+                  </div>
               }
             </FlexRow>
-            <hr />
+            <hr style={{ margin: '40px 0' }} />
             <Row style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
               <Col span={24}>
-                <Button>
+                <Button type="primary">
                   <Link to={organisationRoutes.OrganisationCreate}>
                     Create a New Organisation
                   </Link>
