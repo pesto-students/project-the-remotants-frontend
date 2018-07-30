@@ -1,5 +1,11 @@
 import React, { Component, Fragment } from 'react';
-import { Layout, Breadcrumb } from 'antd';
+import {
+  Layout,
+  Breadcrumb,
+  Tree,
+  Row,
+  Col,
+} from 'antd';
 import PropTypes from 'prop-types';
 
 import { errorNotify } from '../../../helpers/messageNotify';
@@ -7,6 +13,7 @@ import LoadingCard from '../../LoadingCard';
 
 
 const { Content } = Layout;
+const { TreeNode } = Tree;
 
 class Issues extends Component {
   state = {
@@ -20,6 +27,10 @@ class Issues extends Component {
     if (success === false) {
       errorNotify(errors.name);
     }
+  }
+
+  clickIssueHandler = ([issueLocation]) => {
+    window.open(issueLocation, '_blank');
   }
 
   render() {
@@ -39,15 +50,27 @@ class Issues extends Component {
         }}
         >
           <LoadingCard loading={isPageLoading}>
-            <ul>
-              {
-                this.props.issues.map(issue => (
-                  <li key={issue.id} id={issue.id}>
-                    <a href={issue.html_url} target="_blank" rel="noopener noreferrer">{issue.title}</a>
-                  </li>
-                ))
-              }
-            </ul>
+            <Fragment>
+              <Row style={{ marginBottom: '20px' }}>
+                <Col span={24}>
+                  <h2 style={{ marginBottom: '0px' }}>Issues</h2>
+                </Col>
+              </Row>
+              <Row>
+                <Tree showLine onSelect={this.clickIssueHandler}>
+                  {
+                    this.props.issues.map(issue => (
+                      <TreeNode
+                        title={issue.title}
+                        key={issue.html_url}
+                        selectable
+                        isLeaf
+                      />
+                    ))
+                  }
+                </Tree>
+              </Row>
+            </Fragment>
           </LoadingCard>
         </Content>
       </Fragment>
