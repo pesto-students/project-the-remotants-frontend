@@ -8,23 +8,31 @@ import {
   Row,
   Col,
   Button,
+  List,
 } from 'antd';
-import styled from 'styled-components';
 import axios from 'axios';
 
 import { successNotify, errorNotify } from '../../../../helpers/messageNotify';
 import apiRoutes from '../../../../config/apiRoutes';
+import LoadingCard from '../../../LoadingCard';
 
 
 const { Content } = Layout;
 const { Search } = Input;
 
-const LeftAlignedUL = styled.ul`
-  text-align: left;
-`;
+const validateEmail = (email) => {
+  // eslint-disable-next-line no-useless-escape
+  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  if (emailRegex.test(email)) {
+    return true;
+  }
+  return false;
+};
 
 class Invite extends Component {
   state = {
+    isPageLoading: true,
     inputManagerEmail: '',
     managersEmail: [],
     inputEmployeeEmail: '',
@@ -40,6 +48,9 @@ class Invite extends Component {
         errorNotify(errors.name);
       }
     }
+    this.setState({
+      isPageLoading: false,
+    });
   }
   onManagerEmailChange = (e) => {
     this.setState({
@@ -52,6 +63,10 @@ class Invite extends Component {
     });
   }
   addAsManager = (email) => {
+    if (!validateEmail(email)) {
+      errorNotify('Please enter a valid email');
+      return;
+    }
     const emailExists = this.state.managersEmail.some(managerEmail => managerEmail === email);
     if (emailExists === false) {
       this.setState(prevState => ({
@@ -68,6 +83,10 @@ class Invite extends Component {
     });
   }
   addAsEmployee = (email) => {
+    if (!validateEmail(email)) {
+      errorNotify('Please enter a valid email');
+      return;
+    }
     const emailExists = this.state.employeesEmail.some(employeeEmail => employeeEmail === email);
     if (emailExists === false) {
       this.setState(prevState => ({
@@ -84,12 +103,17 @@ class Invite extends Component {
     });
   }
   addManagers = async () => {
+    const { managersEmail } = this.state;
+    if (managersEmail.length === 0) {
+      errorNotify('You need to add an email first!');
+      return;
+    }
     this.setState({
       isLoadingAddManagers: true,
     });
     try {
       const response = await axios.post(apiRoutes.Organisation.Invite, {
-        emails: JSON.stringify(this.state.managersEmail),
+        emails: JSON.stringify(managersEmail),
         manager: 1,
         organisationID: this.props.match.params.id,
       });
@@ -112,12 +136,17 @@ class Invite extends Component {
     }
   }
   addEmployees = async () => {
+    const { employeesEmail } = this.state;
+    if (employeesEmail.length === 0) {
+      errorNotify('You need to add an email first!');
+      return;
+    }
     this.setState({
       isLoadingAddEmployees: true,
     });
     try {
       const response = await axios.post(apiRoutes.Organisation.Invite, {
-        emails: JSON.stringify(this.state.employeesEmail),
+        emails: JSON.stringify(employeesEmail),
         manager: 0,
         organisationID: this.props.match.params.id,
       });
@@ -140,6 +169,18 @@ class Invite extends Component {
     }
   }
 
+  clearManagers = () => {
+    this.setState({
+      managersEmail: [],
+    });
+  }
+
+  clearEmployees = () => {
+    this.setState({
+      employeesEmail: [],
+    });
+  }
+
   render() {
     const { organisations, match } = this.props;
 
@@ -147,6 +188,7 @@ class Invite extends Component {
     const { isLoadingAddManagers, isLoadingAddEmployees } = this.state;
 
     const {
+      isPageLoading,
       inputManagerEmail,
       managersEmail,
       inputEmployeeEmail,
@@ -169,69 +211,98 @@ class Invite extends Component {
             textAlign: 'center',
           }}
         >
-          <h1>
-            Invite Members to&nbsp;
-            {
-              organisations && organisations
-                .filter(organisation => organisation.id === organisationID)
-                .map(organisation => (
-                  <span key={organisation.id}>{organisation.name}</span>
-                ))
-            }
-          </h1>
-
-          <Row gutter={32}>
-            <Col span={12}>
-              <h2>Add Managers</h2>
-              <Search
-                placeholder="Input Email"
-                type="email"
-                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                enterButton="Add as Manager"
-                onSearch={this.addAsManager}
-                onChange={this.onManagerEmailChange}
-                value={inputManagerEmail}
-                required
-              />
-
-              <LeftAlignedUL>
+          <LoadingCard loading={isPageLoading}>
+            <Fragment>
+              <h2>
+                Invite Members to&nbsp;
                 {
-                  managersEmail.map(email => (
-                    <li key={email}>{email}</li>
-                  ))
+                  organisations && organisations
+                    .filter(organisation => organisation.id === organisationID)
+                    .map(organisation => (
+                      <span key={organisation.id}>
+                        {`"${organisation.name}"`}
+                      </span>
+                    ))
                 }
-              </LeftAlignedUL>
-              <Button loading={isLoadingAddManagers} onClick={this.addManagers}>
-                Add
-              </Button>
-            </Col>
+              </h2>
 
-            <Col span={12}>
-              <h2>Add Employees</h2>
+              <Row gutter={64} style={{ marginTop: '40px' }}>
+                <Col span={12}>
+                  <h3>Add Managers</h3>
+                  <Search
+                    placeholder="Input Email"
+                    type="email"
+                    prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                    enterButton="Add as Manager"
+                    onSearch={this.addAsManager}
+                    onChange={this.onManagerEmailChange}
+                    value={inputManagerEmail}
+                    required
+                  />
+                  {
+                    (managersEmail.length > 0) &&
+                      <List
+                        style={{ marginTop: '30px' }}
+                        bordered
+                        dataSource={managersEmail}
+                        renderItem={item => (<List.Item>{item}</List.Item>)}
+                      />
+                  }
+                  <Button
+                    loading={isLoadingAddManagers}
+                    onClick={this.addManagers}
+                    style={{ marginTop: '20px', marginRight: '5px' }}
+                  >
+                    <Icon type="plus-circle-o" />Add
+                  </Button>
+                  <Button
+                    onClick={this.clearManagers}
+                    style={{ marginLeft: '5px' }}
+                  >
+                    <Icon type="delete" />Clear
+                  </Button>
+                </Col>
 
-              <Search
-                placeholder="Input Email"
-                type="email"
-                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                enterButton="Add as Employee"
-                onSearch={this.addAsEmployee}
-                onChange={this.onEmployeeEmailChange}
-                value={inputEmployeeEmail}
-                required
-              />
+                <Col span={12}>
+                  <h3>Add Employees</h3>
 
-              <LeftAlignedUL>
-                {
-                  employeesEmail.map(email => (
-                    <li key={email}>{email}</li>
-                  ))
-                }
-              </LeftAlignedUL>
-              <Button loading={isLoadingAddEmployees} onClick={this.addEmployees}>
-                Add
-              </Button>
-            </Col>
-          </Row>
+                  <Search
+                    placeholder="Input Email"
+                    type="email"
+                    prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                    enterButton="Add as Employee"
+                    onSearch={this.addAsEmployee}
+                    onChange={this.onEmployeeEmailChange}
+                    value={inputEmployeeEmail}
+                    required
+                  />
+
+                  {
+                    (employeesEmail.length > 0) &&
+                      <List
+                        style={{ marginTop: '30px' }}
+                        bordered
+                        dataSource={employeesEmail}
+                        renderItem={item => (<List.Item>{item}</List.Item>)}
+                      />
+                  }
+                  <Button
+                    loading={isLoadingAddEmployees}
+                    onClick={this.addEmployees}
+                    style={{ marginTop: '20px', marginRight: '5px' }}
+                  >
+                    <Icon type="plus-circle-o" />Add
+                  </Button>
+                  <Button
+                    onClick={this.clearEmployees}
+                    style={{ marginLeft: '5px' }}
+                  >
+                    <Icon type="delete" />Clear
+                  </Button>
+                </Col>
+              </Row>
+            </Fragment>
+          </LoadingCard>
         </Content>
       </Fragment>
     );

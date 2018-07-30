@@ -16,28 +16,41 @@ const Manager = ({ currentOrganisation, customMenu, setCurrentManagerID }) => (
   <Row gutter={24} type="flex" >
     {
       (currentOrganisation && currentOrganisation.length) &&
-      currentOrganisation[0].manager.map(manager => (
-        <Col key={manager.id} span={8}>
-          <Card
-            actions={[
-              <Dropdown id={manager.id} overlay={customMenu} trigger={['click']}>
-                <Icon type="ellipsis" onClick={() => { setCurrentManagerID(manager.id); }} />
-              </Dropdown>,
-            ]}
+      ((currentOrganisation[0].manager.length > 0) ?
+        (
+          currentOrganisation[0].manager.map(manager => (
+            <Col key={manager.id} span={8}>
+              <Card
+                actions={[
+                  <Dropdown id={manager.id} overlay={customMenu} trigger={['click']}>
+                    <Icon type="ellipsis" onClick={() => { setCurrentManagerID(manager.id); }} />
+                  </Dropdown>,
+                ]}
+              >
+                <Meta
+                  style={{ display: 'flex', alignItems: 'center' }}
+                  avatar={
+                    <Avatar style={{ backgroundColor: '#FF0039', verticalAlign: 'middle' }} size="large">
+                      {manager.name && manager.name.split('')[0]}
+                    </Avatar>
+                  }
+                  title={manager.name}
+                  description={manager.email}
+                />
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <div style={{
+              margin: '20px 0',
+              color: '#FF5D67',
+              fontSize: '14px',
+            }}
           >
-            <Meta
-              style={{ display: 'flex', alignItems: 'center' }}
-              avatar={
-                <Avatar style={{ backgroundColor: '#FF0039', verticalAlign: 'middle' }} size="large">
-                  {manager.name && manager.name.split('')[0]}
-                </Avatar>
-              }
-              title={manager.name}
-              description={manager.email}
-            />
-          </Card>
-        </Col>
-      ))
+            No managers present!
+          </div>
+        )
+      )
     }
   </Row>
 );

@@ -16,28 +16,41 @@ const Employee = ({ currentOrganisation, customMenu, setCurrentEmployeeID }) => 
   <Row gutter={24} type="flex" >
     {
       (currentOrganisation && currentOrganisation.length) &&
-          currentOrganisation[0].employee.map(employee => (
-            <Col key={employee.id} span={8}>
-              <Card
-                actions={[
-                  <Dropdown id={employee.id} overlay={customMenu} trigger={['click']}>
-                    <Icon type="ellipsis" onClick={() => { setCurrentEmployeeID(employee.id); }} />
-                  </Dropdown>,
-                ]}
-              >
-                <Meta
-                  style={{ display: 'flex', alignItems: 'center' }}
-                  avatar={
-                    <Avatar style={{ backgroundColor: '#FF0039', verticalAlign: 'middle' }} size="large">
-                      {employee.name && employee.name.split('')[0]}
-                    </Avatar>
-                  }
-                  title={employee.name}
-                  description={employee.email}
-                />
-              </Card>
-            </Col>
+        ((currentOrganisation[0].employee.length > 0) ?
+          (
+            currentOrganisation[0].employee.map(employee => (
+              <Col key={employee.id} span={8}>
+                <Card
+                  actions={[
+                    <Dropdown id={employee.id} overlay={customMenu} trigger={['click']}>
+                      <Icon type="ellipsis" onClick={() => { setCurrentEmployeeID(employee.id); }} />
+                    </Dropdown>,
+                  ]}
+                >
+                  <Meta
+                    style={{ display: 'flex', alignItems: 'center' }}
+                    avatar={
+                      <Avatar style={{ backgroundColor: '#FF0039', verticalAlign: 'middle' }} size="large">
+                        {employee.name && employee.name.split('')[0]}
+                      </Avatar>
+                    }
+                    title={employee.name}
+                    description={employee.email}
+                  />
+                </Card>
+              </Col>
           ))
+        ) : (
+          <div style={{
+              margin: '20px 0',
+              color: '#FF5D67',
+              fontSize: '14px',
+            }}
+          >
+            No employees present!
+          </div>
+        )
+      )
     }
   </Row>
 );

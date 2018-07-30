@@ -8,7 +8,7 @@ import Sidebar from './Sidebar';
 class Dashboard extends Component {
   render() {
     return (
-      <Layout>
+      <Layout style={{ minHeight: 'calc(100vh - 130px)' }}>
         <Sidebar {...this.props} />
         <Layout style={{ padding: '0 24px 24px' }}>
           { this.props.children }

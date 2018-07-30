@@ -111,7 +111,7 @@ class Create extends Component {
                     </LargeFormItem>
                     <LargeFormItem>
                       <LargeButton loading={isLoading} type="primary" htmlType="submit">
-                        CREATE
+                        Create
                       </LargeButton>
                     </LargeFormItem>
                   </Form>

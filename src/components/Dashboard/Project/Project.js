@@ -53,7 +53,7 @@ class Project extends Component {
               item.commits.map((commit) => {
                 return (
                   <TreeNode
-                    title={`${commit.message} by ${commit.committer_name} at ${changeDateFormat(commit.committer_date, DATE_FORMAT_CONSTANTS.HUMAN_READABLE_DATE_TIME_FORMAT)} `}
+                    title={`${commit.message} by ${commit.committer_name} at ${changeDateFormat(commit.committer_date, DATE_FORMAT_CONSTANTS.HUMAN_READABLE_DATE_TIME_FORMAT)}`}
                     key={commit.hash}
                     isLeaf
                   />
