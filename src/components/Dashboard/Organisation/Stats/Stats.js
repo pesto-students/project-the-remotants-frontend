@@ -134,7 +134,7 @@ class Stats extends Component {
       const { success, data, errors } = res.data;
 
       // threshold is in percent
-      const threshold = '5';
+      const threshold = '10';
 
       const categoriesInfo = filterImportantData(data.editors, threshold);
       const languagesInfo = filterImportantData(data.languages, threshold);

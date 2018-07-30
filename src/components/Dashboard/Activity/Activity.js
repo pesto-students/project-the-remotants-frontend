@@ -196,7 +196,7 @@ class Activity extends Component {
     const { durationsStore: { durations, dateRangeDurations } } = this.props;
     let durationsInfo = [];
     if (durations.length > 0) {
-      const threshold = '5';
+      const threshold = '10';
       const totalDuration = calcTotalDuration(durations);
       durationsInfo = filterDurationsData(durations, totalDuration, threshold);
     }

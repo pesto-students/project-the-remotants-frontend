@@ -33,7 +33,7 @@ class Sidebar extends Component {
           onClick={this.onMenuClickHandler}
         >
           <Menu.Item key={dashboardItemKeys.Home}>
-            The Remotants
+            <Icon type="right" />The Remotants
           </Menu.Item>
           <SubMenu key={dashboardSubMenuKeys.Profile} title={<span><Icon type="user" />Profile</span>}>
             <Menu.Item key={dashboardItemKeys.Settings}>
