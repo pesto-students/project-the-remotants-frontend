@@ -175,22 +175,27 @@ class Settings extends Component {
                   <Row style={{ display: 'flex', justifyContent: 'center' }}>
                     <Col span={18}>
                       <RowWithMargin>
+                        <Icon type="link" />
                         <h4>Link to Profile:</h4>
                         <a href={github.html_url} target="_blank" rel="noopener noreferrer"> { github.html_url } </a>
                       </RowWithMargin>
                       <RowWithMargin>
+                        <Icon type="profile" />
                         <h4>Bio:</h4>
                         { github.bio }
                       </RowWithMargin>
                       <RowWithMargin>
+                        <Icon type="environment" />
                         <h4>Location:</h4>
                         { github.location ? github.location : wakatime.location }
                       </RowWithMargin>
                       <RowWithMargin>
+                        <Icon type="folder" />
                         <h4>Repositories: </h4>
                         { github.public_repos }
                       </RowWithMargin>
                       <RowWithMargin>
+                        <Icon type="usergroup-add" />
                         <h4>Followers:</h4>
                         { github.followers }
                       </RowWithMargin>
