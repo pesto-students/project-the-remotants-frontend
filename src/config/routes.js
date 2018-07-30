@@ -21,6 +21,7 @@ const dashboardSubMenuKeys = {
 };
 
 const dashboardItemKeys = {
+  Home: 'home',
   Settings: `${dashboardSubMenuKeys.Profile}/settings`,
   Logout: `${dashboardSubMenuKeys.Profile}/logout`,
   ProjectView: `${dashboardSubMenuKeys.Projects}/view`,

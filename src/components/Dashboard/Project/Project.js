@@ -44,6 +44,12 @@ class Project extends Component {
     }
   }
 
+  treeNodeSelectHandler = ([location]) => {
+    if (location.includes('https')) {
+      window.open(location, '_blank');
+    }
+  }
+
   renderTreeNodes = (data = []) => {
     return data.map((item) => {
       if (item.commits) {
@@ -54,7 +60,7 @@ class Project extends Component {
                 return (
                   <TreeNode
                     title={`${commit.message} by ${commit.committer_name} at ${changeDateFormat(commit.committer_date, DATE_FORMAT_CONSTANTS.HUMAN_READABLE_DATE_TIME_FORMAT)}`}
-                    key={commit.hash}
+                    key={commit.html_url}
                     isLeaf
                   />
                 );
@@ -97,7 +103,11 @@ class Project extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Tree showLine loadData={this.onLoadCommits}>
+                    <Tree
+                      showLine
+                      loadData={this.onLoadCommits}
+                      onSelect={this.treeNodeSelectHandler}
+                    >
                       {this.renderTreeNodes(projects)}
                     </Tree>
                   </Row>

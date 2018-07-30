@@ -56,7 +56,6 @@ export const viewCurrentUserDateRangeDurations = (start, end) => (
         data,
         errors,
       } = res.data;
-      console.log('durations check: ', data);
       if (success === true) {
         dispatch(setCurrentUserDateRangeDurations(data));
         return createSuccessMessage();

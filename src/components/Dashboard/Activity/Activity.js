@@ -293,12 +293,11 @@ class Activity extends Component {
                   />
                 </div>
                 <div>
-                  <CustomActivityBar data={sanitizedCategories} width="900" height="400" />
+                  <CustomActivityBar data={sanitizedCategories} width="700" height="400" />
                 </div>
               </Row>
             </Card>
           </LoadingCard>
-
         </Content>
       </Fragment>
     );

@@ -47,7 +47,6 @@ export const viewCurrentUserGithubDetails = () => (
         method: 'GET',
       };
       const res = await axios(apiRoutes.Github.CurrentUserGithubDetails, config);
-      console.log(res);
       const { success, data, errors } = res.data;
       if (success === true) {
         dispatch(setCurrentUserGithubDetails(data));

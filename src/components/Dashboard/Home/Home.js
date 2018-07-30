@@ -28,7 +28,7 @@ class Home extends Component {
             <div style={{ textAlign: 'center' }}>
               <h4 style={{ color: '#777' }}>
                 There is a lot to explore! <br />
-                { 'Let\'s start with checking out the profile' }
+                { 'Let\'s start with checking out the profile...' }
               </h4>
             </div>
           </Fragment>

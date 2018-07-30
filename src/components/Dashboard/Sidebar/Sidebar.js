@@ -14,6 +14,8 @@ class Sidebar extends Component {
     if (key === dashboardItemKeys.Logout) {
       this.props.logoutUser();
       successNotify('Logged out successfully!');
+    } else if (key === dashboardItemKeys.Home) {
+      this.props.history.push(`${routes.Dashboard}`);
     } else {
       this.props.history.push(`${routes.Dashboard}/${key}`);
     }
@@ -30,6 +32,9 @@ class Sidebar extends Component {
           style={{ height: '100%', borderRight: 0 }}
           onClick={this.onMenuClickHandler}
         >
+          <Menu.Item key={dashboardItemKeys.Home}>
+            The Remotants
+          </Menu.Item>
           <SubMenu key={dashboardSubMenuKeys.Profile} title={<span><Icon type="user" />Profile</span>}>
             <Menu.Item key={dashboardItemKeys.Settings}>
               Settings
