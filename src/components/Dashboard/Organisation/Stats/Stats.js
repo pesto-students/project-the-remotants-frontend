@@ -222,13 +222,9 @@ class Stats extends Component {
                         <h2>Projects</h2>
                       </Col>
                     </Row>
-                    <Row>
-                      <Col span={12}>
-                        <CustomBar data={projects} width="500" height="400" />
-                      </Col>
-                      <Col span={12}>
-                        <CustomPie data={projects} width="500" height="400" />
-                      </Col>
+                    <Row type="flex" style={{ justifyContent: 'center' }}>
+                      <CustomBar data={projects} width="700" height="400" />
+                      <CustomPie data={projects} width="700" height="400" />
                     </Row>
                   </Card>
                 )
@@ -241,13 +237,9 @@ class Stats extends Component {
                         <h2>Languages</h2>
                       </Col>
                     </Row>
-                    <Row>
-                      <Col span={12}>
-                        <CustomBar data={languages} width="500" height="400" />
-                      </Col>
-                      <Col span={12}>
-                        <CustomPie data={languages} width="500" height="400" />
-                      </Col>
+                    <Row type="flex" style={{ justifyContent: 'center' }}>
+                      <CustomBar data={languages} width="700" height="400" />
+                      <CustomPie data={languages} width="700" height="400" />
                     </Row>
                   </Card>
                 )
@@ -260,13 +252,9 @@ class Stats extends Component {
                         <h2>Categories</h2>
                       </Col>
                     </Row>
-                    <Row>
-                      <Col span={12}>
-                        <CustomBar data={categories} width="500" height="400" />
-                      </Col>
-                      <Col span={12}>
-                        <CustomPie data={categories} width="500" height="400" />
-                      </Col>
+                    <Row type="flex" style={{ justifyContent: 'center' }}>
+                      <CustomBar data={categories} width="600" height="400" />
+                      <CustomPie data={categories} width="600" height="400" />
                     </Row>
                   </Card>
                 )
