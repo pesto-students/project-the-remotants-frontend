@@ -1,7 +1,9 @@
 ## The Remotants - Frontend
 
 ## Project URL
-[https://the-remotants.netlify.com/](https://the-remotants.netlify.com/)
+**Frontend:** https://the-remotants.netlify.com
+
+**Backend:** https://github.com/PestoTech/project-the-remotants-backend
 
 ## Description
    We are building this project as a part of our Pesto curriculum. Our aim is to implement the technologies taught to us as a part of this career accelerator program and to come up with something using for the society.
