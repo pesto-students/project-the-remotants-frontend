@@ -25,7 +25,7 @@ export const viewCurrentUserDurations = date => (
       } = res.data;
 
       if (success === true) {
-        dispatch(setCurrentUserDurations(data, []));
+        dispatch(setCurrentUserDurations(data));
         return createSuccessMessage();
       }
 
@@ -66,7 +66,7 @@ export const viewCurrentUserDateRangeDurations = (start, end) => (
         errors,
       };
     } catch (e) {
-      return createErrorMessage(`Caught errors while fetching date-range durations from WakaTime ${e}`);
+      return createErrorMessage('Caught errors while fetching date-range durations from WakaTime');
     }
   }
 );

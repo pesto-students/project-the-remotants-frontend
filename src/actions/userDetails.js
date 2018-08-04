@@ -58,7 +58,7 @@ export const viewCurrentUserGithubDetails = () => (
         errors,
       };
     } catch (e) {
-      return createErrorMessage(`Caught errors while fetching user details from Github ${e}`);
+      return createErrorMessage('Caught errors while fetching user details from Github');
     }
   }
 );

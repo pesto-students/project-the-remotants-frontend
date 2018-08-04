@@ -22,6 +22,7 @@ export const loginUser = ({ email, password }) => (
         password,
       });
       const { success, errors, token } = res.data;
+
       if (success === true) {
         store.set(LOCAL_STORAGE_AUTH, token);
         dispatch(setCurrentUser(decodeToken(token)));
