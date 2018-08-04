@@ -8,6 +8,7 @@
     "clean": "rimraf ./dist/bundle.js",
     "start:dev": "webpack-dev-server --mode development --config webpack.config.dev.js --content-base dist/",
     "test": "jest",
+    "test-cmd": "env-cmd ./.env jest",
     "test:coverage": "jest --coverage",
     "precommit": "lint-staged"
   },
@@ -45,6 +46,7 @@
     "styled-components": "^3.3.3"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.5",
     "babel-loader": "^7.1.4",
@@ -54,6 +56,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^1.0.0",
+    "env-cmd": "^8.0.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.11.0",
@@ -61,7 +64,6 @@
     "eslint-plugin-react": "^7.7.0",
     "expect": "^23.4.0",
     "extract-text-webpack-plugin": "^3.0.2",
-    "fetch-mock": "^6.5.0",
     "husky": "^0.14.3",
     "less": "^3.7.1",
     "less-loader": "^4.1.0",
