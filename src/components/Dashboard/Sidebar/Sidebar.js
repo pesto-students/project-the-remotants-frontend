@@ -35,7 +35,7 @@ class Sidebar extends Component {
           <Menu.Item key={dashboardItemKeys.Home}>
             <Icon type="right" />The Remotants
           </Menu.Item>
-          <SubMenu key={dashboardSubMenuKeys.Profile} title={<span><Icon type="user" />Profile</span>}>
+          <SubMenu data-test="profile" key={dashboardSubMenuKeys.Profile} title={<span><Icon type="user" />Profile</span>}>
             <Menu.Item key={dashboardItemKeys.Settings}>
               Settings
             </Menu.Item>

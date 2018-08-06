@@ -62,7 +62,7 @@ class BasicSetup extends Component {
     const { getFieldDecorator } = this.props.form;
     const { isLoading } = this.state;
     return (
-      <Row type="flex" justify="center" style={{ textAlign: 'center' }}>
+      <Row data-test="onBoarding1" type="flex" justify="center" style={{ textAlign: 'center' }}>
         <Col span={18}>
           <h1>On Boarding: Step 1</h1>
           <Card>
