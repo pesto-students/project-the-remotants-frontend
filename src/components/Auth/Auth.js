@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Row, Col } from 'antd';
 
 import Signup from '../Signup';
@@ -6,7 +6,7 @@ import Login from '../Login';
 
 
 const Auth = ({ ...rest }) => (
-  <Fragment>
+  <div data-test="registerAndLoginPage">
     <Row style={{ paddingTop: '50px' }}>
       <h1 style={{ textAlign: 'center' }}>The Remotants</h1>
     </Row>
@@ -24,7 +24,7 @@ const Auth = ({ ...rest }) => (
         </div>
       </Col>
     </Row>
-  </Fragment>
+  </div>
 );
 
 export default Auth;

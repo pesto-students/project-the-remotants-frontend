@@ -61,15 +61,15 @@ class Signup extends React.Component {
           <LargeFormItem>
             {getFieldDecorator('registerEmail', {
               rules: [{ required: true, message: 'Please input your email!' }],
-            })(<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="email" placeholder="Email" />)}
+            })(<Input data-test="registerEmail" prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="email" placeholder="Email" />)}
           </LargeFormItem>
           <LargeFormItem>
             {getFieldDecorator('registerPassword', {
               rules: [{ required: true, message: 'Please input your password!' }],
-            })(<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />)}
+            })(<Input data-test="registerPassword" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />)}
           </LargeFormItem>
           <LargeFormItem>
-            <LargeButton loading={isLoading} type="primary" htmlType="submit">
+            <LargeButton data-test="signupButton" loading={isLoading} type="primary" htmlType="submit">
               SIGN UP
             </LargeButton>
           </LargeFormItem>

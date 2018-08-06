@@ -57,15 +57,15 @@ class Login extends React.Component {
           <LargeFormItem>
             {getFieldDecorator('loginEmail', {
               rules: [{ required: true, message: 'Please input your email!' }],
-            })(<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="email" placeholder="Email" />)}
+            })(<Input data-test="loginEmail" prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} type="email" placeholder="Email" />)}
           </LargeFormItem>
           <LargeFormItem>
             {getFieldDecorator('loginPassword', {
               rules: [{ required: true, message: 'Please input your Password!' }],
-            })(<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />)}
+            })(<Input data-test="loginPassword" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />)}
           </LargeFormItem>
           <LargeFormItem>
-            <LargeButton loading={isLoading} type="primary" htmlType="submit">
+            <LargeButton data-test="loginButton" loading={isLoading} type="primary" htmlType="submit">
               LOG IN
             </LargeButton>
           </LargeFormItem>

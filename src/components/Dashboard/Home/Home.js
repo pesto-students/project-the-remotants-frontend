@@ -19,7 +19,7 @@ class Home extends Component {
             minHeight: 480,
           }}
         >
-          <Fragment>
+          <div data-test="dashboard">
             <div style={{ textAlign: 'center', marginBottom: '20px' }}>
               <h1 style={{ marginBottom: '0' }}>
                 Welcome Remotant!
@@ -31,7 +31,7 @@ class Home extends Component {
                 { 'Let\'s start with checking out the profile...' }
               </h4>
             </div>
-          </Fragment>
+          </div>
         </Content>
       </Fragment>
     );
