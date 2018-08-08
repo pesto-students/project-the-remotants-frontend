@@ -81,7 +81,7 @@ class App extends Component {
           {
             (isDesktop === false) && <ResponsiveAlert />
           }
-          <Content style={{ padding: '0 150px' }}>
+          <Content style={{ padding: '0 10%' }}>
             <Layout style={{
                 padding: '24px 0',
                 margin: '16px 0 0 0',
