@@ -17,15 +17,40 @@ import routes from '../../config/routes';
 import StyledComponents from '../StyledComponents';
 
 
-const { OAuthAnchor, OAuthButton } = StyledComponents;
+const {
+  UppercaseH1,
+  UppercaseH3,
+  OAuthAnchor,
+  OAuthButton,
+  OAuthSuccessButton,
+} = StyledComponents;
 
 
 class OAuthSetup extends Component {
   state = {
     isLoadingGithub: false,
     isLoadingWakatime: false,
+    isGithubConnected: false,
+    isWakatimeConnected: false,
   }
   async componentDidMount() {
+    const isWakatimeConnected = checkLocalStorage(LOCAL_STORAGE_WAKATIME);
+    const isGithubConnected = checkLocalStorage(LOCAL_STORAGE_GITHUB);
+
+    if (isGithubConnected === true) {
+      this.setState({
+        isGithubConnected: true,
+      });
+      return;
+    }
+
+    if (isWakatimeConnected === true) {
+      this.setState({
+        isWakatimeConnected: true,
+      });
+      return;
+    }
+
     const params = (new URL(document.location)).searchParams;
     const code = params.get('code');
     const auth = params.get('auth');
@@ -43,6 +68,9 @@ class OAuthSetup extends Component {
         if (success === true) {
           successNotify('Your GitHub account is now connected!');
           store.set(LOCAL_STORAGE_GITHUB, token);
+          this.setState({
+            isGithubConnected: true,
+          });
         } else {
           errorNotify(errors.name);
         }
@@ -58,6 +86,9 @@ class OAuthSetup extends Component {
         if (success === true) {
           successNotify('Your WakaTime account is now connected!');
           store.set(LOCAL_STORAGE_WAKATIME, token);
+          this.setState({
+            isWakatimeConnected: true,
+          });
         } else {
           errorNotify(errors.name);
         }
@@ -91,38 +122,68 @@ class OAuthSetup extends Component {
   }
 
   render() {
-    const { isLoadingGithub, isLoadingWakatime } = this.state;
+    const {
+      isLoadingGithub,
+      isLoadingWakatime,
+      isGithubConnected,
+      isWakatimeConnected,
+    } = this.state;
     return (
       <Row type="flex" justify="center" style={{ textAlign: 'center' }}>
-        <Col span={18}>
-          <h1>On Boarding: Step 2</h1>
-          <Card>
-            <h3 style={{ marginBottom: '50px' }}>Connect your GitHub and WakaTime accounts</h3>
-
-            <Row style={{ padding: '10px 0' }}>
-              <Col span={12} style={{ borderRight: '1px solid #ccc' }}>
-                <OAuthButton loading={isLoadingGithub}>
-                  <OAuthAnchor
-                    onClick={this.githubClickHandler}
-                    href={authConfig.GITHUB_OAUTH_URI}
-                  >
-                    <Icon style={{ height: '14px' }} type="github" />&nbsp;Connect with GitHub
-                  </OAuthAnchor>
-                </OAuthButton>
-              </Col>
-              <Col span={12} style={{ borderLeft: '1px solid #ccc' }}>
-                <OAuthButton loading={isLoadingWakatime}>
-                  <OAuthAnchor
-                    onClick={this.wakatimeClickHandler}
-                    href={authConfig.WAKATIME_OAUTH_URI}
-                  >
-                    <img style={{ height: '14px' }} alt="wakatime" src="/public/images/wakatime.svg" />&nbsp;Connect with WakaTime
-                  </OAuthAnchor>
-                </OAuthButton>
-              </Col>
-            </Row>
-            <Row style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '30px' }}>
-              <Button type="primary" onClick={this.onContinueHandler}>
+        <Col xs={24} sm={24} lg={12}>
+          <UppercaseH1>On Boarding: Step 2</UppercaseH1>
+          <Card style={{ marginTop: '50px' }}>
+            <UppercaseH3 style={{ marginBottom: '50px' }}>Connect your GitHub and WakaTime accounts</UppercaseH3>
+            <div style={{ padding: '10px 0' }}>
+              <Row style={{ marginBottom: '10px' }}>
+                <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
+                  {
+                    isGithubConnected ?
+                    (
+                      <OAuthSuccessButton>
+                        <Icon style={{ height: '14px', color: '#aaa' }} type="check" />
+                        GitHub
+                      </OAuthSuccessButton>
+                    ) :
+                    (
+                      <OAuthButton loading={isLoadingGithub}>
+                        <OAuthAnchor
+                          onClick={this.githubClickHandler}
+                          href={authConfig.GITHUB_OAUTH_URI}
+                        >
+                          <Icon style={{ height: '14px' }} type="github" />&nbsp;GitHub
+                        </OAuthAnchor>
+                      </OAuthButton>
+                    )
+                  }
+                </Col>
+              </Row>
+              <Row style={{ marginTop: '10px' }}>
+                <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
+                  {
+                    isWakatimeConnected ?
+                    (
+                      <OAuthSuccessButton>
+                        <Icon style={{ height: '14px', color: '#aaa' }} type="check" />
+                        WakaTime
+                      </OAuthSuccessButton>
+                    ) :
+                    (
+                      <OAuthButton loading={isLoadingWakatime}>
+                        <OAuthAnchor
+                          onClick={this.wakatimeClickHandler}
+                          href={authConfig.WAKATIME_OAUTH_URI}
+                        >
+                          <img style={{ height: '14px' }} alt="wakatime" src="/public/images/wakatime.svg" />&nbsp;WakaTime
+                        </OAuthAnchor>
+                      </OAuthButton>
+                    )
+                  }
+                </Col>
+              </Row>
+            </div>
+            <Row style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '3em' }}>
+              <Button type="danger" onClick={this.onContinueHandler}>
                 Continue<Icon type="right" />
               </Button>
             </Row>

@@ -7,7 +7,7 @@ import StyledComponents from '../StyledComponents';
 import routes from '../../config/routes';
 
 
-const { LargeFormItem, LargeButton } = StyledComponents;
+const { CenteredForm, LargeFormItem, LargeButton } = StyledComponents;
 
 class Signup extends React.Component {
   state = {
@@ -57,7 +57,7 @@ class Signup extends React.Component {
     const { isLoading } = this.state;
     return (
       <Row>
-        <Form onSubmit={this.onSignup}>
+        <CenteredForm onSubmit={this.onSignup}>
           <LargeFormItem>
             {getFieldDecorator('registerEmail', {
               rules: [{ required: true, message: 'Please input your email!' }],
@@ -73,7 +73,7 @@ class Signup extends React.Component {
               SIGN UP
             </LargeButton>
           </LargeFormItem>
-        </Form>
+        </CenteredForm>
       </Row>
     );
   }
