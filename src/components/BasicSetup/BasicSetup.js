@@ -9,7 +9,12 @@ import apiRoutes from '../../config/apiRoutes';
 import StyledComponents from '../StyledComponents';
 
 
-const { LargeFormItem, LargeButton } = StyledComponents;
+const {
+  UppercaseH1,
+  UppercaseH3,
+  LargeFormItem,
+  LargeButton,
+} = StyledComponents;
 
 class BasicSetup extends Component {
   state = {
@@ -63,10 +68,10 @@ class BasicSetup extends Component {
     const { isLoading } = this.state;
     return (
       <Row data-test="onBoarding1" type="flex" justify="center" style={{ textAlign: 'center' }}>
-        <Col span={18}>
-          <h1>On Boarding: Step 1</h1>
-          <Card>
-            <h3 style={{ marginBottom: '50px' }}>Please fill your details</h3>
+        <Col xs={24} sm={24} md={18} lg={10}>
+          <UppercaseH1>On Boarding: Step 1</UppercaseH1>
+          <Card style={{ marginTop: '50px' }}>
+            <UppercaseH3 style={{ marginBottom: '50px' }}>Please fill your details</UppercaseH3>
             <Form onSubmit={this.onSubmit}>
               <LargeFormItem>
                 {getFieldDecorator('name', {
@@ -84,8 +89,8 @@ class BasicSetup extends Component {
                 </LargeButton>
               </LargeFormItem>
             </Form>
-            <Row style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '30px' }}>
-              <Button type="primary" onClick={this.onContinueHandler}>
+            <Row style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '3em' }}>
+              <Button type="danger" onClick={this.onContinueHandler}>
                 Continue<Icon type="right" />
               </Button>
             </Row>

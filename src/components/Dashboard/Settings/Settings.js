@@ -10,7 +10,6 @@ import {
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 import { errorNotify } from '../../../helpers/messageNotify';
 import StyledComponents from '../../StyledComponents';
@@ -32,7 +31,7 @@ const RowWithMargin = styled(Row)`
   margin-top: 20px;
 `;
 
-const { LargeBadge, OAuthButton } = StyledComponents;
+const { LargeBadge } = StyledComponents;
 
 class Settings extends Component {
   state = {
@@ -109,13 +108,6 @@ class Settings extends Component {
         >
           <LoadingCard loading={isPageLoading}>
             <Fragment>
-              <Row type="flex" justify="center" style={{ padding: '10px 0', textAlign: 'center' }}>
-                <Col span={12}>
-                  <OAuthButton>
-                    <Link to="/setup-2">Connect WakaTime/GitHub accounts</Link>
-                  </OAuthButton>
-                </Col>
-              </Row>
               <Row type="flex" justify="center">
                 <Col style={{ textAlign: 'center' }}>
                   <StyledAvatar

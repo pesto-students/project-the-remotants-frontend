@@ -1,27 +1,46 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import {
+  Row,
+  Col,
+  Card,
+} from 'antd';
 
 import Signup from '../Signup';
 import Login from '../Login';
+import StyledComponents from '../StyledComponents';
 
+
+const { UppercaseH1, UppercaseH2 } = StyledComponents;
 
 const Auth = ({ ...rest }) => (
   <div data-test="registerAndLoginPage">
     <Row style={{ paddingTop: '50px' }}>
-      <h1 style={{ textAlign: 'center' }}>The Remotants</h1>
+      <UppercaseH1 style={{ textAlign: 'center' }}>
+        The Remotants
+      </UppercaseH1>
     </Row>
-    <Row style={{ paddingTop: '20px', paddingBottom: '50px' }}>
-      <Col span={12} style={{ borderRight: '1px solid #ccc' }}>
-        <div style={{ textAlign: 'center' }}>
-          <h2>Register here</h2>
-          <Signup {...rest} />
-        </div>
+    <Row style={{ paddingTop: '20px', paddingBottom: '50px', marginTop: '30px' }} gutter={24}>
+      <Col md={24} lg={12}>
+        <Card>
+          <div style={{ textAlign: 'center' }}>
+            <UppercaseH2>
+              Register
+            </UppercaseH2>
+            <br />
+            <Signup {...rest} />
+          </div>
+        </Card>
       </Col>
-      <Col span={12} style={{ borderLeft: '1px solid #ccc' }}>
-        <div style={{ textAlign: 'center' }}>
-          <h2>Login here</h2>
-          <Login {...rest} />
-        </div>
+      <Col md={24} lg={12}>
+        <Card>
+          <div style={{ textAlign: 'center' }}>
+            <UppercaseH2>
+              Login
+            </UppercaseH2>
+            <br />
+            <Login {...rest} />
+          </div>
+        </Card>
       </Col>
     </Row>
   </div>
