@@ -41,14 +41,14 @@ class OAuthSetup extends Component {
       this.setState({
         isGithubConnected: true,
       });
-      return;
-    }
 
-    if (isWakatimeConnected === true) {
-      this.setState({
-        isWakatimeConnected: true,
-      });
-      return;
+      if (isWakatimeConnected === true) {
+        this.setState({
+          isWakatimeConnected: true,
+        });
+
+        return;
+      }
     }
 
     const params = (new URL(document.location)).searchParams;
