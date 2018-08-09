@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-import { Signup } from '../helpers/endToendTestHandlers';
+import { Signup } from '../../helpers/endToendTestHandlers';
 
 jest.setTimeout(30 * 1000);
 
@@ -20,11 +20,12 @@ describe('authentication tests', async () => {
 
   describe('Test Sign up', async () => {
     await test('User should be able to sign up', async () => {
-      Signup(page, randomUser);
+      await Signup(page, randomUser);
     });
   });
 
   afterAll(async () => {
+    await page.close();
     await browser.close();
   });
 });
